@@ -1,0 +1,102 @@
+{{ 'rda-construction.css' | asset_url | stylesheet_tag }}
+
+<section class="rda-section rda-service-area">
+  <div class="rda-container">
+    <div class="rda-section-header">
+      {% if section.settings.heading != blank %}
+        <h2 class="rda-section-title">{{ section.settings.heading }}</h2>
+      {% endif %}
+      {% if section.settings.subtext != blank %}
+        <p class="rda-section-subtitle">{{ section.settings.subtext }}</p>
+      {% endif %}
+    </div>
+    <ul class="rda-area-list">
+      {% for block in section.blocks %}
+        {% if block.type == 'area' %}
+          <li class="rda-area-list__item" {{ block.shopify_attributes }}>{{ block.settings.area_name }}</li>
+        {% endif %}
+      {% endfor %}
+    </ul>
+    {% if section.settings.note != blank %}
+      <p class="rda-service-area__note">{{ section.settings.note }}</p>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "RDA Service Area",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Our Service Area"
+    },
+    {
+      "type": "textarea",
+      "id": "subtext",
+      "label": "Subtext",
+      "default": "We serve Stockholm and surrounding municipalities. Contact us to confirm coverage for your location."
+    },
+    {
+      "type": "text",
+      "id": "note",
+      "label": "Additional note",
+      "default": "Not sure if we cover your area? Call us — we often travel further for larger projects."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "area",
+      "name": "Service Area",
+      "settings": [
+        {
+          "type": "text",
+          "id": "area_name",
+          "label": "Area name",
+          "default": "Stockholm"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "RDA Service Area",
+      "blocks": [
+        {
+          "type": "area",
+          "settings": {
+            "area_name": "Stockholm"
+          }
+        },
+        {
+          "type": "area",
+          "settings": {
+            "area_name": "Täby"
+          }
+        },
+        {
+          "type": "area",
+          "settings": {
+            "area_name": "Sollentuna"
+          }
+        },
+        {
+          "type": "area",
+          "settings": {
+            "area_name": "Upplands Väsby"
+          }
+        },
+        {
+          "type": "area",
+          "settings": {
+            "area_name": "Märsta"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

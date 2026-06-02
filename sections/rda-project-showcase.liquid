@@ -1,0 +1,153 @@
+{{ 'rda-construction.css' | asset_url | stylesheet_tag }}
+
+<section class="rda-section">
+  <div class="rda-container">
+    <div class="rda-section-header{% if section.settings.center_header %} rda-section-header--center{% endif %}">
+      {% if section.settings.heading != blank %}
+        <h2 class="rda-section-title">{{ section.settings.heading }}</h2>
+      {% endif %}
+      {% if section.settings.subtext != blank %}
+        <p class="rda-section-subtitle">{{ section.settings.subtext }}</p>
+      {% endif %}
+    </div>
+    <div class="rda-projects-grid">
+      {% for block in section.blocks %}
+        {% if block.type == 'project' %}
+          <div class="rda-project-card" {{ block.shopify_attributes }}>
+            {% if block.settings.image %}
+              <div class="rda-project-card__image-wrap">
+                {{ block.settings.image | image_url: width: 800 | image_tag: loading: 'lazy', alt: block.settings.project_name }}
+              </div>
+            {% endif %}
+            <div class="rda-project-card__body">
+              {% if block.settings.project_name != blank %}
+                <h3 class="rda-project-card__name">{{ block.settings.project_name }}</h3>
+              {% endif %}
+              <div class="rda-project-card__meta">
+                {% if block.settings.location != blank %}
+                  <span class="rda-project-card__meta-item">📍 {{ block.settings.location }}</span>
+                {% endif %}
+                {% if block.settings.work_type != blank %}
+                  <span class="rda-project-card__meta-item">🔨 {{ block.settings.work_type }}</span>
+                {% endif %}
+                {% if block.settings.year != blank %}
+                  <span class="rda-project-card__meta-item">📅 {{ block.settings.year }}</span>
+                {% endif %}
+              </div>
+              {% if block.settings.description != blank %}
+                <p class="rda-project-card__description">{{ block.settings.description }}</p>
+              {% endif %}
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "RDA Project Showcase",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Our Projects"
+    },
+    {
+      "type": "textarea",
+      "id": "subtext",
+      "label": "Subtext",
+      "default": "A selection of completed carpentry and construction projects."
+    },
+    {
+      "type": "checkbox",
+      "id": "center_header",
+      "label": "Center heading",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "project",
+      "name": "Project",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Project image"
+        },
+        {
+          "type": "text",
+          "id": "project_name",
+          "label": "Project name",
+          "default": "Kitchen Renovation"
+        },
+        {
+          "type": "text",
+          "id": "location",
+          "label": "Location",
+          "default": "Stockholm"
+        },
+        {
+          "type": "text",
+          "id": "work_type",
+          "label": "Work type",
+          "default": "Carpentry"
+        },
+        {
+          "type": "text",
+          "id": "year",
+          "label": "Year",
+          "default": "2024"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "Complete renovation including custom cabinets, worktops, and flooring."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "RDA Project Showcase",
+      "blocks": [
+        {
+          "type": "project",
+          "settings": {
+            "project_name": "Kitchen Renovation",
+            "location": "Täby",
+            "work_type": "Kitchen Carpentry",
+            "year": "2024",
+            "description": "Full kitchen remodel with custom cabinets, worktops, and hardwood flooring."
+          }
+        },
+        {
+          "type": "project",
+          "settings": {
+            "project_name": "Garden Decking",
+            "location": "Sollentuna",
+            "work_type": "Decking",
+            "year": "2024",
+            "description": "Large composite decking project with integrated lighting and railing."
+          }
+        },
+        {
+          "type": "project",
+          "settings": {
+            "project_name": "Interior Renovation",
+            "location": "Stockholm",
+            "work_type": "Renovation",
+            "year": "2023",
+            "description": "Full interior renovation including new partitions, flooring, and custom built-ins."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

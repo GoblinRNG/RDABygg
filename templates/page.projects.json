@@ -1,0 +1,29 @@
+{
+  "sections": {
+    "banner": {
+      "type": "rda-image-banner-simple",
+      "settings": {
+        "heading": "Our Projects",
+        "subtext": "A selection of completed carpentry and construction projects."
+      }
+    },
+    "projects": {
+      "type": "rda-project-showcase",
+      "settings": {}
+    },
+    "before_after": {
+      "type": "rda-before-after",
+      "settings": {}
+    },
+    "cta_footer": {
+      "type": "rda-cta-footer",
+      "settings": {}
+    }
+  },
+  "order": [
+    "banner",
+    "projects",
+    "before_after",
+    "cta_footer"
+  ]
+}

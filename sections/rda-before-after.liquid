@@ -1,0 +1,113 @@
+{{ 'rda-construction.css' | asset_url | stylesheet_tag }}
+{{ 'rda-construction.js' | asset_url | script_tag }}
+
+<section class="rda-section rda-before-after">
+  <div class="rda-container">
+    {% if section.settings.heading != blank %}
+      <div class="rda-section-header rda-section-header--center">
+        <h2 class="rda-section-title" style="color:#fff;">{{ section.settings.heading }}</h2>
+        {% if section.settings.subtext != blank %}
+          <p class="rda-section-subtitle" style="color:rgba(255,255,255,0.75);">{{ section.settings.subtext }}</p>
+        {% endif %}
+      </div>
+    {% endif %}
+    <div class="rda-before-after__layout">
+      <div
+        class="rda-ba-slider"
+        role="img"
+        aria-label="{{ section.settings.project_title | default: 'Before and after project comparison' }}"
+      >
+        {% if section.settings.after_image %}
+          <div class="rda-ba-slider__after">
+            {{ section.settings.after_image | image_url: width: 1200 | image_tag: loading: 'lazy', alt: 'After' }}
+          </div>
+        {% else %}
+          <div class="rda-ba-slider__after" style="background:#333;"></div>
+        {% endif %}
+        {% if section.settings.before_image %}
+          <div class="rda-ba-slider__before">
+            {{ section.settings.before_image | image_url: width: 1200 | image_tag: loading: 'lazy', alt: 'Before' }}
+          </div>
+        {% else %}
+          <div class="rda-ba-slider__before" style="background:#555;clip-path:inset(0 50% 0 0);"></div>
+        {% endif %}
+        <div class="rda-ba-slider__handle" tabindex="0">
+          <div class="rda-ba-slider__handle-line"></div>
+          <div class="rda-ba-slider__handle-btn">&#8644;</div>
+        </div>
+        <div class="rda-ba-labels">
+          <span class="rda-ba-label">{{ section.settings.before_label | default: 'Before' }}</span>
+          <span class="rda-ba-label">{{ section.settings.after_label | default: 'After' }}</span>
+        </div>
+      </div>
+      <div class="rda-ba-info">
+        {% if section.settings.project_title != blank %}
+          <h3 class="rda-ba-info__title">{{ section.settings.project_title }}</h3>
+        {% endif %}
+        {% if section.settings.project_description != blank %}
+          <p class="rda-ba-info__description">{{ section.settings.project_description }}</p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "RDA Before & After",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Section heading",
+      "default": "Before & After"
+    },
+    {
+      "type": "text",
+      "id": "subtext",
+      "label": "Section subtext",
+      "default": "See the transformation our team delivers."
+    },
+    {
+      "type": "image_picker",
+      "id": "before_image",
+      "label": "Before image"
+    },
+    {
+      "type": "image_picker",
+      "id": "after_image",
+      "label": "After image"
+    },
+    {
+      "type": "text",
+      "id": "before_label",
+      "label": "Before label",
+      "default": "Before"
+    },
+    {
+      "type": "text",
+      "id": "after_label",
+      "label": "After label",
+      "default": "After"
+    },
+    {
+      "type": "text",
+      "id": "project_title",
+      "label": "Project title",
+      "default": "Kitchen Renovation, Täby"
+    },
+    {
+      "type": "textarea",
+      "id": "project_description",
+      "label": "Project description",
+      "default": "A complete kitchen transformation including new cabinet installation, custom worktops, and hardwood flooring throughout."
+    }
+  ],
+  "presets": [
+    {
+      "name": "RDA Before & After"
+    }
+  ]
+}
+{% endschema %}

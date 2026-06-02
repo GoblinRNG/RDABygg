@@ -1,0 +1,34 @@
+{
+  "sections": {
+    "banner": {
+      "type": "rda-image-banner-simple",
+      "settings": {
+        "heading": "Our Services",
+        "subtext": "Professional carpentry and construction across Stockholm and surroundings."
+      }
+    },
+    "services": {
+      "type": "rda-services-grid",
+      "settings": {}
+    },
+    "materials": {
+      "type": "rda-materials-section",
+      "settings": {}
+    },
+    "process": {
+      "type": "rda-process-steps",
+      "settings": {}
+    },
+    "cta_footer": {
+      "type": "rda-cta-footer",
+      "settings": {}
+    }
+  },
+  "order": [
+    "banner",
+    "services",
+    "materials",
+    "process",
+    "cta_footer"
+  ]
+}

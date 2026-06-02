@@ -1,0 +1,125 @@
+{{ 'rda-construction.css' | asset_url | stylesheet_tag }}
+
+<section class="rda-section">
+  <div class="rda-container">
+    <div class="rda-section-header rda-section-header--center">
+      {% if section.settings.heading != blank %}
+        <h2 class="rda-section-title">{{ section.settings.heading }}</h2>
+      {% endif %}
+      {% if section.settings.subtext != blank %}
+        <p class="rda-section-subtitle">{{ section.settings.subtext }}</p>
+      {% endif %}
+    </div>
+    <div class="rda-values-grid">
+      {% for block in section.blocks %}
+        {% if block.type == 'value' %}
+          <div class="rda-value-card" {{ block.shopify_attributes }}>
+            {% if block.settings.icon != blank %}
+              <div class="rda-value-card__icon" aria-hidden="true">{{ block.settings.icon }}</div>
+            {% endif %}
+            {% if block.settings.title != blank %}
+              <h3 class="rda-value-card__title">{{ block.settings.title }}</h3>
+            {% endif %}
+            {% if block.settings.description != blank %}
+              <p class="rda-value-card__description">{{ block.settings.description }}</p>
+            {% endif %}
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "RDA Company Values",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Our Values"
+    },
+    {
+      "type": "textarea",
+      "id": "subtext",
+      "label": "Subtext",
+      "default": "The principles that guide every project we take on."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "value",
+      "name": "Value",
+      "settings": [
+        {
+          "type": "text",
+          "id": "icon",
+          "label": "Emoji icon",
+          "default": "🏆"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Value title",
+          "default": "Quality Craftsmanship"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "We take pride in every detail, delivering work built to last."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "RDA Company Values",
+      "blocks": [
+        {
+          "type": "value",
+          "settings": {
+            "icon": "🏆",
+            "title": "Quality Craftsmanship",
+            "description": "We take pride in every detail, delivering work built to the highest Swedish standards."
+          }
+        },
+        {
+          "type": "value",
+          "settings": {
+            "icon": "🤝",
+            "title": "Honest Pricing",
+            "description": "Clear, transparent quotes with no hidden costs or surprise charges."
+          }
+        },
+        {
+          "type": "value",
+          "settings": {
+            "icon": "⏱️",
+            "title": "On-Time Delivery",
+            "description": "We respect your time. Projects completed on schedule, every time."
+          }
+        },
+        {
+          "type": "value",
+          "settings": {
+            "icon": "💬",
+            "title": "Clear Communication",
+            "description": "We keep you informed at every stage so there are never any surprises."
+          }
+        },
+        {
+          "type": "value",
+          "settings": {
+            "icon": "♻️",
+            "title": "Sustainable Materials",
+            "description": "We source responsibly, favouring Scandinavian timber and eco-friendly options where possible."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

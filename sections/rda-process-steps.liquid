@@ -1,0 +1,112 @@
+{{ 'rda-construction.css' | asset_url | stylesheet_tag }}
+
+<section class="rda-section rda-process">
+  <div class="rda-container">
+    <div class="rda-section-header rda-section-header--center">
+      {% if section.settings.heading != blank %}
+        <h2 class="rda-section-title">{{ section.settings.heading }}</h2>
+      {% endif %}
+      {% if section.settings.subtext != blank %}
+        <p class="rda-section-subtitle">{{ section.settings.subtext }}</p>
+      {% endif %}
+    </div>
+    <div class="rda-process-steps">
+      {% for block in section.blocks %}
+        {% if block.type == 'step' %}
+          <div class="rda-process-step" {{ block.shopify_attributes }}>
+            <div class="rda-process-step__number">{{ forloop.index }}</div>
+            {% if block.settings.title != blank %}
+              <h3 class="rda-process-step__title">{{ block.settings.title }}</h3>
+            {% endif %}
+            {% if block.settings.description != blank %}
+              <p class="rda-process-step__description">{{ block.settings.description }}</p>
+            {% endif %}
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "RDA Process Steps",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "How We Work"
+    },
+    {
+      "type": "textarea",
+      "id": "subtext",
+      "label": "Subtext",
+      "default": "From first contact to finished project — a clear, professional process."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "step",
+      "name": "Step",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Step title",
+          "default": "Contact Us"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Step description",
+          "default": "Get in touch by phone, email, or our contact form."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "RDA Process Steps",
+      "blocks": [
+        {
+          "type": "step",
+          "settings": {
+            "title": "Contact Us",
+            "description": "Reach out by phone, email, or our contact form. We respond within one business day."
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "title": "Free Consultation",
+            "description": "We visit your site, assess the project, and discuss your requirements."
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "title": "Receive a Quote",
+            "description": "You receive a detailed, transparent quote with no hidden costs."
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "title": "We Get to Work",
+            "description": "Our skilled team begins work on schedule, keeping you updated throughout."
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "title": "Final Handover",
+            "description": "We complete a thorough walkthrough together and ensure you are fully satisfied."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

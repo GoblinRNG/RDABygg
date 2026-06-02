@@ -1,91 +1,16 @@
-/* RDA Bygg AB - Construction Theme JS */
-/* Vanilla JS only — no jQuery, no external CDN */
+/* RDA Bygg AB - Construction Theme JS
+ * Vanilla JS only — no jQuery, no external CDN
+ * Progressive enhancement, DOMContentLoaded safe
+ */
 
 (function () {
   'use strict';
 
   /* ============================================================
-     Before/After Slider
-     ============================================================ */
-  function initBeforeAfterSliders() {
-    var sliders = document.querySelectorAll('.rda-before-after__slider');
-    if (!sliders.length) return;
-
-    sliders.forEach(function (slider) {
-      var afterImg = slider.querySelector('.rda-ba-img--after');
-      var handle = slider.querySelector('.rda-ba-handle');
-      if (!afterImg || !handle) return;
-
-      var dragging = false;
-
-      function setPosition(clientX) {
-        var rect = slider.getBoundingClientRect();
-        var x = clientX - rect.left;
-        var pct = Math.min(Math.max(x / rect.width, 0), 1);
-        var clipPct = (1 - pct) * 100;
-        afterImg.style.clipPath = 'inset(0 ' + clipPct + '% 0 0)';
-        handle.style.left = (pct * 100) + '%';
-      }
-
-      /* Mouse events */
-      handle.addEventListener('mousedown', function (e) {
-        e.preventDefault();
-        dragging = true;
-      });
-
-      document.addEventListener('mousemove', function (e) {
-        if (!dragging) return;
-        setPosition(e.clientX);
-      });
-
-      document.addEventListener('mouseup', function () {
-        dragging = false;
-      });
-
-      /* Touch events */
-      handle.addEventListener('touchstart', function (e) {
-        dragging = true;
-      }, { passive: true });
-
-      document.addEventListener('touchmove', function (e) {
-        if (!dragging) return;
-        if (e.touches && e.touches[0]) {
-          setPosition(e.touches[0].clientX);
-        }
-      }, { passive: true });
-
-      document.addEventListener('touchend', function () {
-        dragging = false;
-      });
-
-      /* Keyboard support */
-      handle.setAttribute('tabindex', '0');
-      handle.setAttribute('role', 'slider');
-      handle.setAttribute('aria-label', 'Before/after comparison slider');
-      handle.addEventListener('keydown', function (e) {
-        var rect = slider.getBoundingClientRect();
-        var currentLeft = parseFloat(handle.style.left) || 50;
-        var step = 5;
-        if (e.key === 'ArrowLeft' || e.key === 'ArrowDown') {
-          currentLeft = Math.max(0, currentLeft - step);
-        } else if (e.key === 'ArrowRight' || e.key === 'ArrowUp') {
-          currentLeft = Math.min(100, currentLeft + step);
-        } else {
-          return;
-        }
-        handle.style.left = currentLeft + '%';
-        var clipPct = 100 - currentLeft;
-        afterImg.style.clipPath = 'inset(0 ' + clipPct + '% 0 0)';
-        e.preventDefault();
-      });
-    });
-  }
-
-  /* ============================================================
      FAQ Accordion
      ============================================================ */
-  function initFaqAccordions() {
-    var questions = document.querySelectorAll('.rda-faq-question');
+  function initFaqAccordion() {
+    var questions = document.querySelectorAll('.rda-faq-item__question');
     if (!questions.length) return;
 
     questions.forEach(function (btn) {
@@ -94,25 +19,117 @@
         var answerId = btn.getAttribute('aria-controls');
         var answer = answerId ? document.getElementById(answerId) : null;
 
-        /* Optionally close other open items in the same list */
-        var parentList = btn.closest('.rda-faq__list');
+        // Close all others in same FAQ list
+        var parentList = btn.closest('.rda-faq-list');
         if (parentList) {
-          parentList.querySelectorAll('.rda-faq-question[aria-expanded="true"]').forEach(function (other) {
-            if (other !== btn) {
-              other.setAttribute('aria-expanded', 'false');
-              var otherId = other.getAttribute('aria-controls');
+          parentList.querySelectorAll('.rda-faq-item__question').forEach(function (otherBtn) {
+            if (otherBtn !== btn) {
+              otherBtn.setAttribute('aria-expanded', 'false');
+              var otherId = otherBtn.getAttribute('aria-controls');
               var otherAnswer = otherId ? document.getElementById(otherId) : null;
-              if (otherAnswer) otherAnswer.classList.remove('is-open');
+              if (otherAnswer) {
+                otherAnswer.classList.remove('rda-faq-item__answer--open');
+              }
             }
           });
         }
 
-        if (expanded) {
-          btn.setAttribute('aria-expanded', 'false');
-          if (answer) answer.classList.remove('is-open');
-        } else {
-          btn.setAttribute('aria-expanded', 'true');
-          if (answer) answer.classList.add('is-open');
+        // Toggle current
+        var newExpanded = !expanded;
+        btn.setAttribute('aria-expanded', String(newExpanded));
+        if (answer) {
+          if (newExpanded) {
+            answer.classList.add('rda-faq-item__answer--open');
+          } else {
+            answer.classList.remove('rda-faq-item__answer--open');
+          }
+        }
+      });
+
+      // Keyboard support
+      btn.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          btn.click();
+        }
+      });
+    });
+  }
+
+  /* ============================================================
+     Before/After Slider
+     ============================================================ */
+  function initBeforeAfterSliders() {
+    var sliders = document.querySelectorAll('.rda-ba-slider');
+    if (!sliders.length) return;
+
+    sliders.forEach(function (slider) {
+      var beforeEl = slider.querySelector('.rda-ba-slider__before');
+      var handle = slider.querySelector('.rda-ba-slider__handle');
+      if (!beforeEl || !handle) return;
+
+      var isDragging = false;
+
+      function setPosition(x) {
+        var rect = slider.getBoundingClientRect();
+        var pos = Math.max(0, Math.min(1, (x - rect.left) / rect.width));
+        var pct = pos * 100;
+        beforeEl.style.clipPath = 'inset(0 ' + (100 - pct) + '% 0 0)';
+        handle.style.left = pct + '%';
+      }
+
+      // Mouse events
+      slider.addEventListener('mousedown', function (e) {
+        isDragging = true;
+        setPosition(e.clientX);
+        e.preventDefault();
+      });
+
+      document.addEventListener('mousemove', function (e) {
+        if (!isDragging) return;
+        setPosition(e.clientX);
+      });
+
+      document.addEventListener('mouseup', function () {
+        isDragging = false;
+      });
+
+      // Touch events
+      slider.addEventListener('touchstart', function (e) {
+        isDragging = true;
+        setPosition(e.touches[0].clientX);
+      }, { passive: true });
+
+      document.addEventListener('touchmove', function (e) {
+        if (!isDragging) return;
+        setPosition(e.touches[0].clientX);
+      }, { passive: true });
+
+      document.addEventListener('touchend', function () {
+        isDragging = false;
+      });
+
+      // Keyboard accessibility
+      handle.setAttribute('tabindex', '0');
+      handle.setAttribute('role', 'slider');
+      handle.setAttribute('aria-label', 'Before/after comparison slider');
+      handle.setAttribute('aria-valuemin', '0');
+      handle.setAttribute('aria-valuemax', '100');
+      handle.setAttribute('aria-valuenow', '50');
+
+      handle.addEventListener('keydown', function (e) {
+        var rect = slider.getBoundingClientRect();
+        var currentLeft = parseFloat(handle.style.left) || 50;
+        var step = 5;
+
+        if (e.key === 'ArrowLeft') {
+          e.preventDefault();
+          setPosition(rect.left + ((currentLeft - step) / 100) * rect.width);
+          handle.setAttribute('aria-valuenow', String(Math.max(0, currentLeft - step)));
+        } else if (e.key === 'ArrowRight') {
+          e.preventDefault();
+          setPosition(rect.left + ((currentLeft + step) / 100) * rect.width);
+          handle.setAttribute('aria-valuenow', String(Math.min(100, currentLeft + step)));
         }
       });
     });
@@ -123,12 +140,12 @@
      ============================================================ */
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', function () {
+      initFaqAccordion();
       initBeforeAfterSliders();
-      initFaqAccordions();
     });
   } else {
+    initFaqAccordion();
     initBeforeAfterSliders();
-    initFaqAccordions();
   }
 
 })();
