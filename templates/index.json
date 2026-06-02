@@ -2,39 +2,353 @@
   "sections": {
     "hero": {
       "type": "rda-hero-construction",
-      "settings": {}
+      "blocks": {
+        "trust_1": {
+          "type": "trust_item",
+          "settings": {
+            "icon": "home",
+            "title": "Registrerat bolag",
+            "description": "RDA Bygg AB är ett registrerat aktiebolag med F-skatt och alla nödvändiga försäkringar."
+          }
+        },
+        "trust_2": {
+          "type": "trust_item",
+          "settings": {
+            "icon": "hammer",
+            "title": "Snickerispecialister",
+            "description": "Erfarna inom alla former av snickeri, renovering och byggarbeten."
+          }
+        },
+        "trust_3": {
+          "type": "trust_item",
+          "settings": {
+            "icon": "people",
+            "title": "Fri konsultation",
+            "description": "Vi besöker dig och lämnar offert kostnadsfritt — utan förbindelser."
+          }
+        },
+        "trust_4": {
+          "type": "trust_item",
+          "settings": {
+            "icon": "leaf",
+            "title": "Stockholmsregionen",
+            "description": "Verksamma i Stockholm, Täby, Sollentuna, Upplands Väsby och kringliggande kommuner."
+          }
+        }
+      },
+      "block_order": ["trust_1", "trust_2", "trust_3", "trust_4"],
+      "settings": {
+        "hero_image": "shopify://shop_images/ChatGPT_Image_Jun_2_2026_06_17_52_PM.png",
+        "overlay_opacity": 85,
+        "heading": "RDA Bygg AB",
+        "subheading": "Bygger med kvalitet. Skapar för framtiden.",
+        "subtext": "Professionellt byggföretag med fokus på kvalitet, pålitlighet och nöjda kunder.",
+        "cta_primary_label": "Begär Offert",
+        "cta_primary_url": "",
+        "cta_secondary_label": "Våra Projekt",
+        "cta_secondary_url": "",
+        "color_heading": "#ffffff",
+        "color_subheading": "#e8e8e8",
+        "color_body": "#d0cec9",
+        "color_divider": "#c4860a",
+        "color_btn_primary_bg": "#2c2c2c",
+        "color_btn_primary_text": "#ffffff",
+        "color_btn_primary_border": "#2c2c2c",
+        "color_btn_secondary_text": "#ffffff",
+        "color_btn_secondary_border": "#ffffff",
+        "color_trust_bg": "#14120f",
+        "color_trust_divider": "#2e2b26",
+        "color_trust_icon": "#c4860a",
+        "color_trust_title": "#ffffff",
+        "color_trust_body": "#9e9a94"
+      }
     },
     "services": {
       "type": "rda-services-grid",
-      "settings": {}
+      "blocks": {
+        "svc_1": {
+          "type": "service",
+          "settings": {
+            "icon": "🔨",
+            "title": "Snickeriarbeten",
+            "description": "Allsidiga snickeriarbeten för både bostäder och lokaler — från enklare reparationer till mer omfattande projekt.",
+            "link_label": "Läs mer",
+            "link_url": "/pages/services"
+          }
+        },
+        "svc_2": {
+          "type": "service",
+          "settings": {
+            "icon": "🏠",
+            "title": "Renoveringssnickerier",
+            "description": "Invändiga och utvändiga renoveringar med fokus på noggranna detaljer och hållbart hantverk.",
+            "link_label": "Läs mer",
+            "link_url": "/pages/services"
+          }
+        },
+        "svc_3": {
+          "type": "service",
+          "settings": {
+            "icon": "🌲",
+            "title": "Altan & utomhusarbeten",
+            "description": "Trädäck, altaner och utomhuskonstruktioner i trä — byggda för att hålla mot det nordiska klimatet.",
+            "link_label": "Läs mer",
+            "link_url": "/pages/services"
+          }
+        },
+        "svc_4": {
+          "type": "service",
+          "settings": {
+            "icon": "📐",
+            "title": "Stommar & innerväggar",
+            "description": "Regelkonstruktioner, skiljeväggar och taklösningar utförda med precision och rätt material.",
+            "link_label": "Läs mer",
+            "link_url": "/pages/services"
+          }
+        },
+        "svc_5": {
+          "type": "service",
+          "settings": {
+            "icon": "🪵",
+            "title": "Golvläggning",
+            "description": "Läggning av trägolv, laminat och vinyl — rätt förberedelse och proffsigt utförande ger ett hållbart resultat.",
+            "link_label": "Läs mer",
+            "link_url": "/pages/services"
+          }
+        },
+        "svc_6": {
+          "type": "service",
+          "settings": {
+            "icon": "🚪",
+            "title": "Dörrar & fönster",
+            "description": "Montering och byte av inner- och ytterdörrar samt fönster — med rätt tätning, funktion och finish.",
+            "link_label": "Läs mer",
+            "link_url": "/pages/services"
+          }
+        },
+        "svc_7": {
+          "type": "service",
+          "settings": {
+            "icon": "🍳",
+            "title": "Köksrenovering",
+            "description": "Montering av köksinredning, bänkskivor och speciallösningar — vi hanterar hela snickeribitens i köket.",
+            "link_label": "Läs mer",
+            "link_url": "/pages/services"
+          }
+        },
+        "svc_8": {
+          "type": "service",
+          "settings": {
+            "icon": "✏️",
+            "title": "Specialsnickeri",
+            "description": "Måttanpassade inbyggnader, hyllsystem och trälösningar framtagna efter dina specifika önskemål.",
+            "link_label": "Läs mer",
+            "link_url": "/pages/services"
+          }
+        }
+      },
+      "block_order": ["svc_1", "svc_2", "svc_3", "svc_4", "svc_5", "svc_6", "svc_7", "svc_8"],
+      "settings": {
+        "heading": "Våra tjänster",
+        "subtext": "Professionella snickeri- och byggtjänster i Stockholm med omnejd — utförda med ordning, noggrannhet och respekt för din bostad.",
+        "center_header": true
+      }
     },
     "projects": {
       "type": "rda-project-showcase",
-      "settings": {}
+      "settings": {
+        "heading": "Utförda projekt",
+        "subtext": "Ett urval av genomförda snickeri- och byggprojekt hos kunder i Stockholmsregionen.",
+        "center_header": true
+      }
     },
     "before_after": {
       "type": "rda-before-after",
-      "settings": {}
+      "settings": {
+        "heading": "Före & efter",
+        "subtext": "Se skillnaden ett genomarbetat snickeri kan göra.",
+        "before_label": "Före",
+        "after_label": "Efter",
+        "project_title": "Köksrenovering, Täby",
+        "project_description": "Komplett köksrenovering med ny inredning, bänkskivor och trägolv. Kunden fick ett funktionellt och snyggt kök inom avtalad tid och budget."
+      }
     },
     "process": {
       "type": "rda-process-steps",
-      "settings": {}
+      "blocks": {
+        "step_1": {
+          "type": "step",
+          "settings": {
+            "title": "Kontakta oss",
+            "description": "Hör av dig via telefon, e-post eller kontaktformuläret. Vi svarar inom en arbetsdag."
+          }
+        },
+        "step_2": {
+          "type": "step",
+          "settings": {
+            "title": "Besök & genomgång",
+            "description": "Vi kommer till dig, tittar på projektet och diskuterar dina önskemål och förutsättningar på plats."
+          }
+        },
+        "step_3": {
+          "type": "step",
+          "settings": {
+            "title": "Tydlig offert",
+            "description": "Du får en skriftlig offert med klar prisnivå och specificerat innehåll — inga dolda kostnader."
+          }
+        },
+        "step_4": {
+          "type": "step",
+          "settings": {
+            "title": "Planering & uppstart",
+            "description": "Vi kommer överens om startdatum och tidsplan som passar dig. Arbetet påbörjas vid avtalad tidpunkt."
+          }
+        },
+        "step_5": {
+          "type": "step",
+          "settings": {
+            "title": "Genomgång & överlämning",
+            "description": "Vi går igenom det färdiga arbetet tillsammans och säkerställer att du är nöjd med resultatet."
+          }
+        }
+      },
+      "block_order": ["step_1", "step_2", "step_3", "step_4", "step_5"],
+      "settings": {
+        "heading": "Så arbetar vi",
+        "subtext": "Från första kontakt till färdigt projekt — en strukturerad process utan onödiga överraskningar."
+      }
     },
     "testimonials": {
       "type": "rda-testimonials",
-      "settings": {}
+      "blocks": {
+        "review_1": {
+          "type": "testimonial",
+          "settings": {
+            "rating": 5,
+            "text": "RDA Bygg gjorde ett riktigt bra jobb med vår köksrenovering. Snyggt utfört, höll tidsplanen och kommunikationen var tydlig hela vägen. Kan varmt rekommendera.",
+            "name": "Anna L.",
+            "city": "Täby",
+            "project_type": "Köksrenovering"
+          }
+        },
+        "review_2": {
+          "type": "testimonial",
+          "settings": {
+            "rating": 5,
+            "text": "Beställde en altan och fick exakt det jag bad om — stabil konstruktion, fint hantverk och städigt efter sig. Skönt att kunna lita på att arbetet utförs som man kommit överens om.",
+            "name": "Marcus K.",
+            "city": "Sollentuna",
+            "project_type": "Altanbygge"
+          }
+        },
+        "review_3": {
+          "type": "testimonial",
+          "settings": {
+            "rating": 5,
+            "text": "Vi lade nytt trägolv i hela lägenheten och resultatet blev fantastiskt. Teamet var noga, tog hänsyn till våra möbler och lämnade lägenheten i fint skick.",
+            "name": "Sofia B.",
+            "city": "Stockholm",
+            "project_type": "Golvläggning"
+          }
+        },
+        "review_4": {
+          "type": "testimonial",
+          "settings": {
+            "rating": 5,
+            "text": "Fick hjälp med att sätta upp innerväggar och byta dörrar i samband med en ombyggnation. Snabbt, prydligt och priset stämde väl med offerten. Nöjd kund.",
+            "name": "Erik J.",
+            "city": "Upplands Väsby",
+            "project_type": "Innerväggar & dörrar"
+          }
+        }
+      },
+      "block_order": ["review_1", "review_2", "review_3", "review_4"],
+      "settings": {
+        "heading": "Vad våra kunder säger",
+        "subtext": "Förtroendet byggs ett projekt i taget — i Stockholm, Täby, Sollentuna och kringliggande kommuner."
+      }
     },
     "service_area": {
       "type": "rda-service-area",
-      "settings": {}
+      "blocks": {
+        "area_1": { "type": "area", "settings": { "area_name": "Stockholm" } },
+        "area_2": { "type": "area", "settings": { "area_name": "Täby" } },
+        "area_3": { "type": "area", "settings": { "area_name": "Sollentuna" } },
+        "area_4": { "type": "area", "settings": { "area_name": "Upplands Väsby" } },
+        "area_5": { "type": "area", "settings": { "area_name": "Märsta" } },
+        "area_6": { "type": "area", "settings": { "area_name": "Sigtuna" } },
+        "area_7": { "type": "area", "settings": { "area_name": "Vallentuna" } },
+        "area_8": { "type": "area", "settings": { "area_name": "Lidingö" } }
+      },
+      "block_order": ["area_1", "area_2", "area_3", "area_4", "area_5", "area_6", "area_7", "area_8"],
+      "settings": {
+        "heading": "Vårt arbetsområde",
+        "subtext": "Vi utför uppdrag i Stockholm och omgivande kommuner. Tveka inte att höra av dig — vi reser gärna för större projekt.",
+        "note": "Osäker på om vi täcker ditt område? Ring oss — vi löser det ofta ändå."
+      }
     },
     "faq": {
       "type": "rda-faq",
-      "settings": {}
+      "blocks": {
+        "faq_1": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Vilka snickeriarbeten utför ni?",
+            "answer": "Vi utför de flesta typer av snickeriarbeten: renovering, stommar och innerväggar, golvläggning, dörrar och fönster, köksmontering, altanbygge, inbyggnader och specialsnickeri. Vi tar både mindre reparationer och större byggprojekt."
+          }
+        },
+        "faq_2": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Utför ni målning, putsarbeten eller takläggning?",
+            "answer": "Nej, vår specialitet är snickeri och byggnation. Vi utför inte målning, puts- eller spackelarbeten, eller takläggning. Behöver du hjälp med sådant kan vi rekommendera kollegor i branschen."
+          }
+        },
+        "faq_3": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Är offerten kostnadsfri?",
+            "answer": "Ja, vi erbjuder kostnadsfri konsultation och offert. Vi besöker platsen, tittar på projektet och lämnar en skriftlig offert utan kostnad och utan förbindelser."
+          }
+        },
+        "faq_4": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Arbetar ni till fast pris eller löpande räkning?",
+            "answer": "Vi erbjuder båda alternativen beroende på projektets karaktär. Tydliga och avgränsade arbeten prissätts gärna fast. Mer komplexa projekt där omfattningen kan förändras hanteras på löpande räkning. Vi är alltid transparenta med hur vi räknar."
+          }
+        },
+        "faq_5": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Kan kunden stå för materialet själv?",
+            "answer": "Absolut. Vi arbetar gärna med kundens eget material. Vi kan också ta hand om materialinköp om det är enklare — det stämmer vi av när vi går igenom offerten."
+          }
+        },
+        "faq_6": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Vilka områden arbetar ni i?",
+            "answer": "Vi är verksamma i Stockholmsregionen — primärt Stockholm, Täby, Sollentuna, Upplands Väsby, Märsta, Sigtuna, Vallentuna och Lidingö. Hör av dig så berättar vi mer om vad som gäller för just ditt uppdrag."
+          }
+        }
+      },
+      "block_order": ["faq_1", "faq_2", "faq_3", "faq_4", "faq_5", "faq_6"],
+      "settings": {
+        "heading": "Vanliga frågor",
+        "subtext": "Svar på det vi oftast får frågor om."
+      }
     },
     "cta_footer": {
       "type": "rda-cta-footer",
-      "settings": {}
+      "settings": {
+        "heading": "Behöver du pålitliga snickeriarbeten?",
+        "subtext": "Hör av dig idag för en kostnadsfri konsultation och offert. Utan förbindelser.",
+        "btn1_label": "Begär offert",
+        "btn1_url": "",
+        "btn2_label": "Våra projekt",
+        "btn2_url": ""
+      }
     }
   },
   "order": [

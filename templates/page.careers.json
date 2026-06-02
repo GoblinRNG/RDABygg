@@ -2,7 +2,56 @@
   "sections": {
     "careers": {
       "type": "rda-careers-form",
-      "settings": {}
+      "blocks": {
+        "benefit_1": {
+          "type": "benefit",
+          "settings": {
+            "icon": "checkmark",
+            "title": "Marknadsmässig lön",
+            "description": "Vi erbjuder konkurrenskraftig ersättning och ser löpande över lönenivåerna i takt med att bolaget växer."
+          }
+        },
+        "benefit_2": {
+          "type": "benefit",
+          "settings": {
+            "icon": "clock",
+            "title": "Stabila uppdrag",
+            "description": "Vi har en jämn orderstock med varierande projekt — du vet att det finns arbete att gå till."
+          }
+        },
+        "benefit_3": {
+          "type": "benefit",
+          "settings": {
+            "icon": "people",
+            "title": "Bra arbetsmiljö",
+            "description": "Vi är ett sammansvetsat team där erfarenhet delas och alla behandlas med respekt. Ordning och reda på arbetsplatsen är en självklarhet."
+          }
+        },
+        "benefit_4": {
+          "type": "benefit",
+          "settings": {
+            "icon": "location",
+            "title": "Lokala uppdrag",
+            "description": "Alla våra projekt ligger i Stockholmsregionen — du slipper långa resor och kan planera vardagen på ett rimligt sätt."
+          }
+        }
+      },
+      "block_order": ["benefit_1", "benefit_2", "benefit_3", "benefit_4"],
+      "settings": {
+        "form_endpoint": "https://formspree.io/f/mlgvqqqz",
+        "heading": "Jobba hos RDA Bygg AB",
+        "subheading": "Vi söker skickliga snickare, installatörer och byggarbetare",
+        "body_text": "RDA Bygg AB är ett växande byggbolag i Stockholm med fokus på snickeri och renovering. Vi lägger stor vikt vid kvalitet i utförandet och ett professionellt bemötande — mot kunder och mot varandra. Är du en person som tar ansvar, arbetar noggrant och vill vara del av ett pålitligt team? Skicka in din ansökan så hör vi av oss.",
+        "bg_image": "shopify://shop_images/join-our-team-apply-for-a-job-rda-bygg-ab-is-a-growing-construction-company-based-in-stockholm-we-take-pride-in-quality-craftsmanship-and-a-collaborative-work-environment-if-you-want.png",
+        "overlay_opacity": 70,
+        "position_options": "Snickare\nInstallatör\nByggnadsarbetare\nProjektassistent\nAnnat",
+        "color_bg": "#ffffff",
+        "color_heading": "#2c2c2c",
+        "color_accent": "#c4860a",
+        "color_form_bg": "#ffffff",
+        "color_btn_bg": "#2c2c2c",
+        "color_btn_text": "#ffffff"
+      }
     }
   },
   "order": ["careers"]
