@@ -4,10 +4,6 @@
       "type": "rda-hero-construction",
       "settings": {}
     },
-    "trust_band": {
-      "type": "rda-trust-band",
-      "settings": {}
-    },
     "services": {
       "type": "rda-services-grid",
       "settings": {}
@@ -43,7 +39,6 @@
   },
   "order": [
     "hero",
-    "trust_band",
     "services",
     "projects",
     "before_after",

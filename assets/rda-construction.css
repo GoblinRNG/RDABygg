@@ -1372,3 +1372,90 @@
     display: none;
   }
 }
+
+/* ============================================================
+   Homepage: header overlays hero as one visual block
+   Only applies to .template-index
+   ============================================================ */
+
+/* Position header on top of hero so they read as one unit */
+.template-index .header-wrapper {
+  position: absolute !important;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background: transparent !important;
+  box-shadow: none !important;
+  border-bottom: none !important;
+}
+
+/* Nav links: white on transparent header */
+.template-index .header__menu .list-menu__item--link,
+.template-index .header__inline-menu .list-menu__item--link,
+.template-index .header .list-menu__item--link {
+  color: rgba(255,255,255,0.92) !important;
+}
+
+.template-index .header__menu .list-menu__item--link:hover,
+.template-index .header__inline-menu .list-menu__item--link:hover {
+  color: #fff !important;
+}
+
+/* Logo text: white on transparent header */
+.template-index .rda-logo__name {
+  color: #fff !important;
+}
+
+.template-index .rda-logo__icon {
+  color: var(--rda-accent) !important;
+}
+
+/* "Begär Offert" CTA stays dark but more visible on photo */
+.template-index .rda-nav-cta {
+  background: var(--rda-charcoal) !important;
+  color: #fff !important;
+}
+
+/* Hamburger / mobile icon: white on transparent */
+.template-index .header__icon,
+.template-index .header__icon svg {
+  color: #fff !important;
+  fill: #fff !important;
+}
+
+/* Dawn sticky header: restore solid bg once user scrolls */
+.template-index .header-wrapper.scrolled {
+  background: rgba(255,255,255,0.97) !important;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 1px 8px rgba(0,0,0,0.12) !important;
+  border-bottom: 1px solid var(--rda-border) !important;
+  transition: background 0.25s ease, box-shadow 0.25s ease;
+}
+
+.template-index .header-wrapper.scrolled .list-menu__item--link,
+.template-index .header-wrapper.scrolled .rda-logo__name {
+  color: var(--rda-charcoal) !important;
+}
+
+.template-index .header-wrapper.scrolled .header__icon,
+.template-index .header-wrapper.scrolled .header__icon svg {
+  color: var(--rda-charcoal) !important;
+  fill: var(--rda-charcoal) !important;
+}
+
+/* Hero must sit under the absolute header — no top gap */
+.template-index #MainContent {
+  padding-top: 0 !important;
+  margin-top: 0 !important;
+}
+
+/* Ensure hero is tall enough to cover nav area */
+.template-index .rda-hero {
+  min-height: 100vh;
+}
+
+/* Extra top padding in hero content so text clears the nav */
+.template-index .rda-hero__body {
+  padding-top: 8rem;
+}

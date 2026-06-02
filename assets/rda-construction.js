@@ -136,16 +136,44 @@
   }
 
   /* ============================================================
+     Homepage: transparent header → solid on scroll
+     ============================================================ */
+  function initScrollHeader() {
+    if (!document.body.classList.contains('template-index')) return;
+
+    var header = document.querySelector('.header-wrapper');
+    if (!header) return;
+
+    var hero = document.querySelector('.rda-hero');
+    if (!hero) return;
+
+    var threshold = hero.offsetHeight - 80;
+
+    function onScroll() {
+      if (window.scrollY > threshold) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  }
+
+  /* ============================================================
      Init on DOMContentLoaded
      ============================================================ */
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', function () {
       initFaqAccordion();
       initBeforeAfterSliders();
+      initScrollHeader();
     });
   } else {
     initFaqAccordion();
     initBeforeAfterSliders();
+    initScrollHeader();
   }
 
 })();
