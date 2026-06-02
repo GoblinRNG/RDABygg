@@ -177,7 +177,7 @@
               CV / Resume <span aria-hidden="true">*</span>
               <span class="rda-careers__hint">PDF, DOC, DOCX — max 25 MB</span>
             </label>
-            <div class="rda-careers__dropzone">
+            <div class="rda-careers__dropzone" id="rda-careers-cv-zone">
               <input
                 class="rda-careers__file-input"
                 type="file"
@@ -185,9 +185,13 @@
                 name="cv"
                 required
                 accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                aria-describedby="rda-careers-cv-list"
               >
-              <span class="rda-careers__dropzone-label">Click to upload or drag and drop</span>
+              <svg class="rda-careers__dropzone-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+              <span class="rda-careers__dropzone-label">Click to upload or drag &amp; drop</span>
+              <span class="rda-careers__dropzone-hint">PDF, DOC, DOCX</span>
             </div>
+            <ul class="rda-careers__file-list" id="rda-careers-cv-list" aria-live="polite"></ul>
           </div>
 
           <div class="rda-careers__field">
@@ -195,7 +199,7 @@
               Work photos / portfolio
               <span class="rda-careers__hint">Images or PDF — max 25 MB per file</span>
             </label>
-            <div class="rda-careers__dropzone">
+            <div class="rda-careers__dropzone" id="rda-careers-portfolio-zone">
               <input
                 class="rda-careers__file-input"
                 type="file"
@@ -203,9 +207,13 @@
                 name="portfolio[]"
                 multiple
                 accept="image/*,.pdf,application/pdf"
+                aria-describedby="rda-careers-portfolio-list"
               >
-              <span class="rda-careers__dropzone-label">Click to upload or drag and drop</span>
+              <svg class="rda-careers__dropzone-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+              <span class="rda-careers__dropzone-label">Click to upload or drag &amp; drop</span>
+              <span class="rda-careers__dropzone-hint">JPG, PNG, PDF — multiple files allowed</span>
             </div>
+            <ul class="rda-careers__file-list" id="rda-careers-portfolio-list" aria-live="polite"></ul>
           </div>
 
           <div class="rda-careers__field">

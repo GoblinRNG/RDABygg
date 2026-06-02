@@ -173,6 +173,66 @@
     var errorMsg = document.getElementById('rda-careers-error');
     var MAX_SIZE = 25 * 1024 * 1024; // 25MB
 
+    /* ── File preview lists ── */
+    function formatBytes(bytes) {
+      if (bytes < 1024) return bytes + ' B';
+      if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(0) + ' KB';
+      return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+    }
+
+    function renderFileList(input, listEl) {
+      listEl.innerHTML = '';
+      var files = input.files;
+      if (!files || !files.length) return;
+
+      for (var i = 0; i < files.length; i++) {
+        var f = files[i];
+        var li = document.createElement('li');
+        li.className = 'rda-careers__file-item';
+
+        var isImage = f.type.startsWith('image/');
+        var icon = isImage
+          ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>'
+          : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>';
+
+        var oversized = f.size > MAX_SIZE;
+
+        li.innerHTML =
+          '<span class="rda-careers__file-icon' + (oversized ? ' rda-careers__file-icon--error' : '') + '">' + icon + '</span>' +
+          '<span class="rda-careers__file-name">' + f.name + '</span>' +
+          '<span class="rda-careers__file-size' + (oversized ? ' rda-careers__file-size--error' : '') + '">' +
+            (oversized ? '⚠ ' : '') + formatBytes(f.size) +
+          '</span>';
+
+        listEl.appendChild(li);
+      }
+
+      /* update dropzone label */
+      var zone = input.closest('.rda-careers__dropzone');
+      if (zone) {
+        var label = zone.querySelector('.rda-careers__dropzone-label');
+        if (label) {
+          label.textContent = files.length === 1
+            ? '1 file selected — click to change'
+            : files.length + ' files selected — click to change';
+        }
+      }
+    }
+
+    form.querySelectorAll('input[type="file"]').forEach(function (input) {
+      var listId = input.getAttribute('aria-describedby');
+      var listEl = listId ? document.getElementById(listId) : null;
+      if (!listEl) return;
+
+      input.addEventListener('change', function () {
+        renderFileList(input, listEl);
+      });
+    });
+
+    /* ── Endpoint guard ── */
+    var endpoint = form.getAttribute('action');
+
+    /* ── File size validation ── */
     function validateFiles() {
       var inputs = form.querySelectorAll('input[type="file"]');
       for (var i = 0; i < inputs.length; i++) {
@@ -188,6 +248,15 @@
 
     form.addEventListener('submit', function (e) {
       e.preventDefault();
+
+      /* Block submission if no endpoint is configured */
+      if (!endpoint || endpoint.trim() === '') {
+        errorMsg.textContent = 'Form not configured yet. Please add a Formspree endpoint URL in the theme editor settings.';
+        errorMsg.hidden = false;
+        successMsg.hidden = true;
+        return;
+      }
+
       var fileError = validateFiles();
       if (fileError) {
         errorMsg.textContent = fileError;
@@ -202,7 +271,7 @@
 
       var data = new FormData(form);
 
-      fetch(form.action, {
+      fetch(endpoint, {
         method: 'POST',
         body: data,
         headers: { 'Accept': 'application/json' }
@@ -211,9 +280,16 @@
         if (res.ok) {
           successMsg.hidden = false;
           form.reset();
+          /* clear file previews */
+          form.querySelectorAll('.rda-careers__file-list').forEach(function (list) {
+            list.innerHTML = '';
+          });
+          form.querySelectorAll('.rda-careers__dropzone-label').forEach(function (lbl) {
+            lbl.textContent = 'Click to upload or drag & drop';
+          });
         } else {
           return res.json().then(function (json) {
-            throw new Error(json.error || 'Submission failed');
+            throw new Error(json.error || 'Submission failed. Please try again.');
           });
         }
       })
