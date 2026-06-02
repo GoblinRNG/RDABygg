@@ -1285,12 +1285,7 @@
    Scoped to Dawn's .header class — minimal, non-breaking
    ============================================================ */
 
-/* Clean white background, subtle bottom border */
-.header-wrapper {
-  background: #fff !important;
-  border-bottom: 1px solid var(--rda-border) !important;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.07) !important;
-}
+/* Header border — only added via Dawn color scheme, no bg override here */
 
 /* Logo area: house SVG icon + text side-by-side */
 .rda-logo {
