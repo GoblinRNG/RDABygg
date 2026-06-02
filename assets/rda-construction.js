@@ -226,8 +226,58 @@
 
       input.addEventListener('change', function () {
         renderFileList(input, listEl);
+        checkFormReady();
       });
     });
+
+    /* ── Live validation: enable submit only when all required fields are filled ── */
+    var validationMsg = document.getElementById('rda-careers-validation-msg');
+
+    function checkFormReady() {
+      var missing = [];
+
+      var name = form.querySelector('#rda-careers-name');
+      if (!name || !name.value.trim()) missing.push('Full name');
+
+      var email = form.querySelector('#rda-careers-email');
+      if (!email || !email.value.trim() || !email.value.includes('@')) missing.push('Email');
+
+      var phone = form.querySelector('#rda-careers-phone');
+      if (!phone || !phone.value.trim()) missing.push('Phone number');
+
+      var cvInput = form.querySelector('#rda-careers-cv');
+      if (!cvInput || !cvInput.files || cvInput.files.length === 0) missing.push('CV / Resume');
+
+      var consent = form.querySelector('#rda-careers-consent');
+      if (!consent || !consent.checked) missing.push('Data consent');
+
+      var ready = missing.length === 0;
+      submitBtn.disabled = !ready;
+
+      if (validationMsg) {
+        if (missing.length > 0 && (
+          (name && name.value.trim()) ||
+          (email && email.value.trim()) ||
+          (phone && phone.value.trim()) ||
+          (cvInput && cvInput.files && cvInput.files.length > 0) ||
+          (consent && consent.checked)
+        )) {
+          validationMsg.textContent = 'Still needed: ' + missing.join(', ');
+        } else {
+          validationMsg.textContent = '';
+        }
+      }
+    }
+
+    ['#rda-careers-name', '#rda-careers-email', '#rda-careers-phone'].forEach(function (sel) {
+      var el = form.querySelector(sel);
+      if (el) el.addEventListener('input', checkFormReady);
+    });
+
+    var consentCheck = form.querySelector('#rda-careers-consent');
+    if (consentCheck) consentCheck.addEventListener('change', checkFormReady);
+
+    checkFormReady();
 
     /* ── Endpoint guard ── */
     var endpoint = form.getAttribute('action');

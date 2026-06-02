@@ -2054,10 +2054,50 @@
 }
 
 /* ── Submit button ── */
+/* ── Consent checkbox ── */
+.rda-careers__field--consent {
+  margin-top: 1.25rem;
+  padding: 1rem 1.1rem;
+  background: #f8f6f2;
+  border: 1px solid #e0d8cc;
+  border-radius: 8px;
+}
+
+.rda-careers__consent-label {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  cursor: pointer;
+}
+
+.rda-careers__consent-check {
+  flex-shrink: 0;
+  width: 1.1rem;
+  height: 1.1rem;
+  margin-top: 0.15rem;
+  accent-color: var(--rda-careers-accent, #C4860A);
+  cursor: pointer;
+}
+
+.rda-careers__consent-text {
+  font-size: 0.82rem;
+  color: #4a4a4a;
+  line-height: 1.5;
+}
+
+/* ── Validation hint ── */
+.rda-careers__required-note {
+  font-size: 0.78rem;
+  color: #b07000;
+  margin: 0.6rem 0 0;
+  min-height: 1.1em;
+}
+
+/* ── Submit button ── */
 .rda-careers__submit {
   display: block;
   width: 100%;
-  margin-top: 1.5rem;
+  margin-top: 1rem;
   padding: 0.85rem 1.5rem;
   background-color: var(--rda-careers-btn-bg, #2C2C2C);
   color: var(--rda-careers-btn-text, #fff);

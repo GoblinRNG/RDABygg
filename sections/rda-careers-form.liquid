@@ -127,12 +127,13 @@
               >
             </div>
             <div class="rda-careers__field">
-              <label class="rda-careers__label" for="rda-careers-phone">Phone</label>
+              <label class="rda-careers__label" for="rda-careers-phone">Phone number <span aria-hidden="true">*</span></label>
               <input
                 class="rda-careers__input"
                 type="tel"
                 id="rda-careers-phone"
                 name="phone"
+                required
                 autocomplete="tel"
               >
             </div>
@@ -228,11 +229,31 @@
             </select>
           </div>
 
+          <div class="rda-careers__field rda-careers__field--consent">
+            <label class="rda-careers__consent-label">
+              <input
+                class="rda-careers__consent-check"
+                type="checkbox"
+                id="rda-careers-consent"
+                name="consent"
+                required
+              >
+              <span class="rda-careers__consent-text">
+                I agree to share my personal data (name, contact details, CV, and portfolio) with RDA Bygg AB for the purpose of evaluating my job application and contacting me regarding hiring. <span aria-hidden="true">*</span>
+              </span>
+            </label>
+          </div>
+
+          <p class="rda-careers__required-note" aria-live="polite" id="rda-careers-validation-msg"></p>
+
           <button
             type="submit"
             class="rda-careers__submit"
+            id="rda-careers-submit-btn"
             data-default="Submit application"
             data-loading="Sending…"
+            disabled
+            aria-describedby="rda-careers-validation-msg"
           >
             Submit application
           </button>
