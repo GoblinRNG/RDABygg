@@ -1,6 +1,29 @@
 {{ 'rda-construction.css' | asset_url | stylesheet_tag }}
 
-<section class="rda-hero">
+{%- liquid
+  assign overlay_alpha = section.settings.overlay_opacity | divided_by: 100.0
+-%}
+
+<section
+  class="rda-hero"
+  style="
+    --hero-heading-color: {{ section.settings.color_heading }};
+    --hero-subheading-color: {{ section.settings.color_subheading }};
+    --hero-body-color: {{ section.settings.color_body }};
+    --hero-divider-color: {{ section.settings.color_divider }};
+    --hero-btn-primary-bg: {{ section.settings.color_btn_primary_bg }};
+    --hero-btn-primary-text: {{ section.settings.color_btn_primary_text }};
+    --hero-btn-primary-border: {{ section.settings.color_btn_primary_border }};
+    --hero-btn-secondary-text: {{ section.settings.color_btn_secondary_text }};
+    --hero-btn-secondary-border: {{ section.settings.color_btn_secondary_border }};
+    --hero-trust-bg: {{ section.settings.color_trust_bg }};
+    --hero-trust-border: {{ section.settings.color_trust_divider }};
+    --hero-trust-icon: {{ section.settings.color_trust_icon }};
+    --hero-trust-title: {{ section.settings.color_trust_title }};
+    --hero-trust-body: {{ section.settings.color_trust_body }};
+    --hero-overlay-opacity: {{ overlay_alpha }};
+  "
+>
   {% if section.settings.hero_image %}
     {{ section.settings.hero_image | image_url: width: 1920 | image_tag: loading: 'eager', alt: section.settings.heading, class: 'rda-hero__bg' }}
   {% else %}
@@ -20,12 +43,12 @@
       {% endif %}
       <div class="rda-hero__ctas">
         {% if section.settings.cta_primary_label != blank %}
-          <a href="{{ section.settings.cta_primary_url | default: '/pages/offert' }}" class="rda-btn rda-hero__btn--primary">
+          <a href="{{ section.settings.cta_primary_url | default: '/pages/offert' }}" class="rda-hero__btn--primary">
             {{ section.settings.cta_primary_label }}
           </a>
         {% endif %}
         {% if section.settings.cta_secondary_label != blank %}
-          <a href="{{ section.settings.cta_secondary_url | default: '/pages/projekt' }}" class="rda-btn rda-hero__btn--secondary">
+          <a href="{{ section.settings.cta_secondary_url | default: '/pages/projekt' }}" class="rda-hero__btn--secondary">
             {{ section.settings.cta_secondary_label }}
           </a>
         {% endif %}
@@ -73,6 +96,10 @@
   "tag": "section",
   "settings": [
     {
+      "type": "header",
+      "content": "Background image"
+    },
+    {
       "type": "image_picker",
       "id": "hero_image",
       "label": "Hero background image"
@@ -81,11 +108,15 @@
       "type": "range",
       "id": "overlay_opacity",
       "label": "Overlay darkness",
-      "min": 10,
-      "max": 80,
+      "min": 0,
+      "max": 85,
       "step": 5,
       "default": 45,
       "unit": "%"
+    },
+    {
+      "type": "header",
+      "content": "Content"
     },
     {
       "type": "text",
@@ -96,7 +127,7 @@
     {
       "type": "text",
       "id": "subheading",
-      "label": "Subheading (tagline)",
+      "label": "Tagline",
       "default": "Bygger med kvalitet. Skapar för framtiden."
     },
     {
@@ -104,6 +135,10 @@
       "id": "subtext",
       "label": "Body text",
       "default": "Professionellt byggföretag med fokus på kvalitet, pålitlighet och nöjda kunder."
+    },
+    {
+      "type": "header",
+      "content": "Buttons"
     },
     {
       "type": "text",
@@ -126,6 +161,106 @@
       "type": "url",
       "id": "cta_secondary_url",
       "label": "Secondary button URL"
+    },
+    {
+      "type": "header",
+      "content": "Hero colors"
+    },
+    {
+      "type": "color",
+      "id": "color_heading",
+      "label": "Heading color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "color_subheading",
+      "label": "Tagline color",
+      "default": "#e8e8e8"
+    },
+    {
+      "type": "color",
+      "id": "color_body",
+      "label": "Body text color",
+      "default": "#d0cec9"
+    },
+    {
+      "type": "color",
+      "id": "color_divider",
+      "label": "Accent divider color",
+      "default": "#C4860A"
+    },
+    {
+      "type": "header",
+      "content": "Primary button colors"
+    },
+    {
+      "type": "color",
+      "id": "color_btn_primary_bg",
+      "label": "Background",
+      "default": "#2C2C2C"
+    },
+    {
+      "type": "color",
+      "id": "color_btn_primary_text",
+      "label": "Text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "color_btn_primary_border",
+      "label": "Border",
+      "default": "#2C2C2C"
+    },
+    {
+      "type": "header",
+      "content": "Secondary (ghost) button colors"
+    },
+    {
+      "type": "color",
+      "id": "color_btn_secondary_text",
+      "label": "Text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "color_btn_secondary_border",
+      "label": "Border",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Trust bar colors"
+    },
+    {
+      "type": "color",
+      "id": "color_trust_bg",
+      "label": "Background",
+      "default": "#14120f"
+    },
+    {
+      "type": "color",
+      "id": "color_trust_divider",
+      "label": "Column divider",
+      "default": "#2e2b26"
+    },
+    {
+      "type": "color",
+      "id": "color_trust_icon",
+      "label": "Icon color",
+      "default": "#C4860A"
+    },
+    {
+      "type": "color",
+      "id": "color_trust_title",
+      "label": "Title color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "color_trust_body",
+      "label": "Description color",
+      "default": "#9e9a94"
     }
   ],
   "blocks": [

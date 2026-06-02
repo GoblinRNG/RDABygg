@@ -146,9 +146,9 @@
   inset: 0;
   background: linear-gradient(
     105deg,
-    rgba(0,0,0,0.72) 0%,
-    rgba(0,0,0,0.52) 50%,
-    rgba(0,0,0,0.18) 100%
+    rgba(0,0,0,calc(var(--hero-overlay-opacity, 0.45) * 1.6)) 0%,
+    rgba(0,0,0,calc(var(--hero-overlay-opacity, 0.45) * 1.15)) 50%,
+    rgba(0,0,0,calc(var(--hero-overlay-opacity, 0.45) * 0.4)) 100%
   );
   z-index: 1;
 }
@@ -180,7 +180,7 @@
   line-height: 1.0;
   letter-spacing: -0.01em;
   text-transform: uppercase;
-  color: #fff;
+  color: var(--hero-heading-color, #fff);
   margin: 0 0 0.6rem;
 }
 
@@ -190,22 +190,22 @@
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.9);
+  color: var(--hero-subheading-color, rgba(255,255,255,0.9));
   margin: 0 0 1.1rem;
 }
 
-/* Gold accent divider */
+/* Accent divider — color from settings */
 .rda-hero__divider {
   width: 3rem;
   height: 3px;
-  background: var(--rda-accent);
+  background: var(--hero-divider-color, var(--rda-accent));
   margin: 0 0 1.25rem;
   border-radius: 2px;
 }
 
 .rda-hero__subtext {
   font-size: clamp(0.95rem, 2vw, 1.1rem);
-  color: rgba(255,255,255,0.82);
+  color: var(--hero-body-color, rgba(255,255,255,0.82));
   margin: 0 0 2rem;
   max-width: 480px;
   line-height: 1.65;
@@ -217,11 +217,11 @@
   gap: 0.85rem;
 }
 
-/* Dark charcoal filled button */
+/* Primary button — colors from settings */
 .rda-hero__btn--primary {
-  background: var(--rda-charcoal);
-  color: #fff;
-  border: 2px solid var(--rda-charcoal);
+  background: var(--hero-btn-primary-bg, var(--rda-charcoal));
+  color: var(--hero-btn-primary-text, #fff);
+  border: 2px solid var(--hero-btn-primary-border, var(--rda-charcoal));
   padding: 0.85rem 2rem;
   font-size: 0.85rem;
   font-weight: 700;
@@ -230,23 +230,21 @@
   border-radius: var(--rda-radius);
   text-decoration: none;
   display: inline-block;
-  transition: background var(--rda-transition), border-color var(--rda-transition);
+  transition: filter var(--rda-transition), outline var(--rda-transition);
 }
 
 .rda-hero__btn--primary:hover,
 .rda-hero__btn--primary:focus {
-  background: #111;
-  border-color: #111;
-  color: #fff;
+  filter: brightness(0.85);
   outline: 2px solid rgba(255,255,255,0.4);
   outline-offset: 2px;
 }
 
-/* Ghost / outline button */
+/* Secondary ghost button — colors from settings */
 .rda-hero__btn--secondary {
   background: transparent;
-  color: #fff;
-  border: 2px solid rgba(255,255,255,0.75);
+  color: var(--hero-btn-secondary-text, #fff);
+  border: 2px solid var(--hero-btn-secondary-border, rgba(255,255,255,0.75));
   padding: 0.85rem 2rem;
   font-size: 0.85rem;
   font-weight: 700;
@@ -255,25 +253,23 @@
   border-radius: var(--rda-radius);
   text-decoration: none;
   display: inline-block;
-  transition: background var(--rda-transition), border-color var(--rda-transition);
+  transition: background var(--rda-transition), outline var(--rda-transition);
 }
 
 .rda-hero__btn--secondary:hover,
 .rda-hero__btn--secondary:focus {
-  background: rgba(255,255,255,0.12);
-  border-color: #fff;
-  color: #fff;
+  background: rgba(255,255,255,0.1);
   outline: 2px solid rgba(255,255,255,0.4);
   outline-offset: 2px;
 }
 
-/* Bottom trust bar — dark semi-transparent strip */
+/* Bottom trust bar — colors from settings */
 .rda-hero__trust-bar {
   position: relative;
   z-index: 2;
-  background: rgba(20, 18, 15, 0.82);
+  background: var(--hero-trust-bg, #14120f);
   backdrop-filter: blur(6px);
-  border-top: 1px solid rgba(255,255,255,0.08);
+  border-top: 1px solid var(--hero-trust-border, rgba(255,255,255,0.08));
 }
 
 .rda-hero__trust-inner {
@@ -289,8 +285,8 @@
   align-items: flex-start;
   gap: 0.85rem;
   padding: 1.4rem 1.5rem 1.4rem 0;
-  border-right: 1px solid rgba(255,255,255,0.1);
-  color: #fff;
+  border-right: 1px solid var(--hero-trust-border, rgba(255,255,255,0.1));
+  color: var(--hero-trust-title, #fff);
 }
 
 .rda-hero__trust-item:first-child {
@@ -305,7 +301,7 @@
   flex-shrink: 0;
   width: 2rem;
   height: 2rem;
-  color: var(--rda-accent);
+  color: var(--hero-trust-icon, var(--rda-accent));
   margin-top: 0.1rem;
 }
 
@@ -325,12 +321,12 @@
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: #fff;
+  color: var(--hero-trust-title, #fff);
 }
 
 .rda-hero__trust-text span {
   font-size: 0.82rem;
-  color: rgba(255,255,255,0.65);
+  color: var(--hero-trust-body, rgba(255,255,255,0.65));
   line-height: 1.45;
 }
 
