@@ -1,0 +1,129 @@
+{{ 'rda-construction.css' | asset_url | stylesheet_tag }}
+{{ 'rda-construction.js' | asset_url | script_tag }}
+
+<section class="rda-section rda-faq">
+  <div class="rda-container">
+    <div class="rda-section-header rda-section-header--center">
+      {% if section.settings.heading != blank %}
+        <h2 class="rda-section-title">{{ section.settings.heading }}</h2>
+      {% endif %}
+      {% if section.settings.subtext != blank %}
+        <p class="rda-section-subtitle">{{ section.settings.subtext }}</p>
+      {% endif %}
+    </div>
+    <div class="rda-faq-list">
+      {% for block in section.blocks %}
+        {% if block.type == 'faq_item' %}
+          {% assign answer_id = 'faq-answer-' | append: section.id | append: '-' | append: forloop.index %}
+          <div class="rda-faq-item" {{ block.shopify_attributes }}>
+            <button
+              class="rda-faq-item__question"
+              aria-expanded="false"
+              aria-controls="{{ answer_id }}"
+            >
+              {{ block.settings.question }}
+              <span class="rda-faq-item__icon" aria-hidden="true">+</span>
+            </button>
+            <div
+              class="rda-faq-item__answer"
+              id="{{ answer_id }}"
+              role="region"
+            >
+              <p>{{ block.settings.answer }}</p>
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "RDA FAQ",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Frequently Asked Questions"
+    },
+    {
+      "type": "textarea",
+      "id": "subtext",
+      "label": "Subtext",
+      "default": "Common questions about our services and how we work."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "faq_item",
+      "name": "FAQ Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question",
+          "default": "What areas do you cover?"
+        },
+        {
+          "type": "textarea",
+          "id": "answer",
+          "label": "Answer",
+          "default": "We cover Stockholm and surrounding municipalities including Täby, Sollentuna, Upplands Väsby, and Märsta."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "RDA FAQ",
+      "blocks": [
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "What areas do you cover?",
+            "answer": "We primarily serve Stockholm and surrounding municipalities including Täby, Sollentuna, Upplands Väsby, and Märsta. Contact us for other locations."
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "Do you offer free quotes?",
+            "answer": "Yes, we provide free consultations and detailed quotes for all projects. Simply contact us and we will arrange a site visit."
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "Are you a registered company?",
+            "answer": "Yes, RDA Bygg AB is a fully registered Swedish company with F-skatt (tax registration) and all required insurance."
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "How long does a typical project take?",
+            "answer": "Project timelines vary depending on scope. Small repairs can often be completed within a day, while full renovations may take several weeks. We will give you a clear timeline in your quote."
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "Do you handle painting or plastering as well?",
+            "answer": "Our speciality is carpentry and construction — framing, flooring, doors, windows, kitchens, and renovation. We do not carry out painting, plastering, or roofing work."
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "Can I supply my own materials?",
+            "answer": "Yes, we are happy to work with materials supplied by the customer. We can also source and supply materials on your behalf if preferred."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

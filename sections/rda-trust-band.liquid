@@ -1,0 +1,92 @@
+{{ 'rda-construction.css' | asset_url | stylesheet_tag }}
+
+<div class="rda-trust-band">
+  <div class="rda-trust-band__inner">
+    {% for block in section.blocks %}
+      {% if block.type == 'trust_item' %}
+        <div class="rda-trust-item" {{ block.shopify_attributes }}>
+          {% if block.settings.icon != blank %}
+            <span class="rda-trust-item__icon" aria-hidden="true">{{ block.settings.icon }}</span>
+          {% endif %}
+          <span class="rda-trust-item__text">{{ block.settings.text }}</span>
+        </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "RDA Trust Band",
+  "tag": "section",
+  "blocks": [
+    {
+      "type": "trust_item",
+      "name": "Trust Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "icon",
+          "label": "Emoji icon",
+          "default": "✓"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "Registered Company"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "RDA Trust Band",
+      "blocks": [
+        {
+          "type": "trust_item",
+          "settings": {
+            "icon": "✓",
+            "text": "Registered Company"
+          }
+        },
+        {
+          "type": "trust_item",
+          "settings": {
+            "icon": "🏆",
+            "text": "Swedish Work Standards"
+          }
+        },
+        {
+          "type": "trust_item",
+          "settings": {
+            "icon": "💬",
+            "text": "Free Consultation"
+          }
+        },
+        {
+          "type": "trust_item",
+          "settings": {
+            "icon": "🪵",
+            "text": "Carpentry Specialists"
+          }
+        },
+        {
+          "type": "trust_item",
+          "settings": {
+            "icon": "📍",
+            "text": "Stockholm & Surroundings"
+          }
+        },
+        {
+          "type": "trust_item",
+          "settings": {
+            "icon": "⭐",
+            "text": "5-Star Rated Service"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

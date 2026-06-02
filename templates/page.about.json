@@ -1,0 +1,34 @@
+{
+  "sections": {
+    "banner": {
+      "type": "rda-image-banner-simple",
+      "settings": {
+        "heading": "About RDA Bygg AB",
+        "subtext": "Swedish carpentry and construction specialists."
+      }
+    },
+    "values": {
+      "type": "rda-company-values",
+      "settings": {}
+    },
+    "trust_band": {
+      "type": "rda-trust-band",
+      "settings": {}
+    },
+    "testimonials": {
+      "type": "rda-testimonials",
+      "settings": {}
+    },
+    "cta_footer": {
+      "type": "rda-cta-footer",
+      "settings": {}
+    }
+  },
+  "order": [
+    "banner",
+    "values",
+    "trust_band",
+    "testimonials",
+    "cta_footer"
+  ]
+}

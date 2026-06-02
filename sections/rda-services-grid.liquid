@@ -1,0 +1,179 @@
+{{ 'rda-construction.css' | asset_url | stylesheet_tag }}
+
+<section class="rda-section rda-services">
+  <div class="rda-container">
+    <div class="rda-section-header{% if section.settings.center_header %} rda-section-header--center{% endif %}">
+      {% if section.settings.heading != blank %}
+        <h2 class="rda-section-title">{{ section.settings.heading }}</h2>
+      {% endif %}
+      {% if section.settings.subtext != blank %}
+        <p class="rda-section-subtitle">{{ section.settings.subtext }}</p>
+      {% endif %}
+    </div>
+    <div class="rda-services-grid">
+      {% for block in section.blocks %}
+        {% if block.type == 'service' %}
+          <div class="rda-service-card" {{ block.shopify_attributes }}>
+            {% if block.settings.image %}
+              <div class="rda-service-card__image-wrap">
+                {{ block.settings.image | image_url: width: 600 | image_tag: loading: 'lazy', alt: block.settings.title }}
+              </div>
+            {% elsif block.settings.icon != blank %}
+              <div class="rda-service-card__icon">{{ block.settings.icon }}</div>
+            {% endif %}
+            <div class="rda-service-card__body">
+              {% if block.settings.title != blank %}
+                <h3 class="rda-service-card__title">{{ block.settings.title }}</h3>
+              {% endif %}
+              {% if block.settings.description != blank %}
+                <p class="rda-service-card__description">{{ block.settings.description }}</p>
+              {% endif %}
+              {% if block.settings.link_label != blank and block.settings.link_url != blank %}
+                <a href="{{ block.settings.link_url }}" class="rda-service-card__link">{{ block.settings.link_label }} &rarr;</a>
+              {% endif %}
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "RDA Services Grid",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Our Services"
+    },
+    {
+      "type": "textarea",
+      "id": "subtext",
+      "label": "Subtext",
+      "default": "Professional carpentry and construction services across Stockholm and surrounding areas."
+    },
+    {
+      "type": "checkbox",
+      "id": "center_header",
+      "label": "Center heading",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "service",
+      "name": "Service",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Service image"
+        },
+        {
+          "type": "text",
+          "id": "icon",
+          "label": "Emoji icon (if no image)",
+          "default": "🔨"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Service title",
+          "default": "Carpentry"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "Expert carpentry work including custom woodwork, framing, and finishing."
+        },
+        {
+          "type": "text",
+          "id": "link_label",
+          "label": "Link label"
+        },
+        {
+          "type": "url",
+          "id": "link_url",
+          "label": "Link URL"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "RDA Services Grid",
+      "blocks": [
+        {
+          "type": "service",
+          "settings": {
+            "icon": "🪵",
+            "title": "Carpentry",
+            "description": "Custom carpentry solutions including built-ins, framing, and finish work."
+          }
+        },
+        {
+          "type": "service",
+          "settings": {
+            "icon": "🏠",
+            "title": "Renovation",
+            "description": "Complete interior renovation services to transform your space."
+          }
+        },
+        {
+          "type": "service",
+          "settings": {
+            "icon": "🌿",
+            "title": "Decking",
+            "description": "Beautiful outdoor decking in a range of timber and composite materials."
+          }
+        },
+        {
+          "type": "service",
+          "settings": {
+            "icon": "🧱",
+            "title": "Walls & Framing",
+            "description": "Partition walls, stud framing, and structural carpentry."
+          }
+        },
+        {
+          "type": "service",
+          "settings": {
+            "icon": "🪵",
+            "title": "Flooring",
+            "description": "Hardwood, laminate, and engineered flooring installation."
+          }
+        },
+        {
+          "type": "service",
+          "settings": {
+            "icon": "🚪",
+            "title": "Doors & Windows",
+            "description": "Supply and fitting of interior and exterior doors and windows."
+          }
+        },
+        {
+          "type": "service",
+          "settings": {
+            "icon": "🍽️",
+            "title": "Kitchen Carpentry",
+            "description": "Kitchen unit installation, worktops, and custom storage solutions."
+          }
+        },
+        {
+          "type": "service",
+          "settings": {
+            "icon": "🔧",
+            "title": "Repairs & Maintenance",
+            "description": "Ongoing repairs, assembly, and maintenance for residential and commercial clients."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

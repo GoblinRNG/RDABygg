@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="{{ 'rda-construction.css' | asset_url }}" media="print" onload="this.media='all'">
 <link rel="stylesheet" href="{{ 'component-list-menu.css' | asset_url }}" media="print" onload="this.media='all'">
 <link rel="stylesheet" href="{{ 'component-search.css' | asset_url }}" media="print" onload="this.media='all'">
 <link rel="stylesheet" href="{{ 'component-menu-drawer.css' | asset_url }}" media="print" onload="this.media='all'">
@@ -160,7 +161,15 @@
                 }}
               </div>
             {%- else -%}
-              <span class="h2">{{ shop.name }}</span>
+              <span class="rda-logo" aria-label="{{ shop.name }}">
+                <span class="rda-logo__icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/>
+                    <path d="M9 21V12h6v9"/>
+                  </svg>
+                </span>
+                <span class="rda-logo__name">{{ shop.name }}</span>
+              </span>
             {%- endif -%}
           </a>
       {%- if request.page_type == 'index' -%}
@@ -177,6 +186,11 @@
         endif
       endif
     %}
+    {%- if section.settings.cta_label != blank -%}
+      <a href="{{ section.settings.cta_url | default: '/pages/offert' }}" class="rda-nav-cta">
+        {{ section.settings.cta_label }}
+      </a>
+    {%- endif -%}
 
     {%- if section.settings.logo_position == 'middle-center' -%}
       {%- if request.page_type == 'index' -%}
@@ -498,6 +512,21 @@
       "id": "menu",
       "default": "main-menu",
       "label": "t:sections.header.settings.menu.label"
+    },
+    {
+      "type": "header",
+      "content": "Navigation CTA button"
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "Button label",
+      "default": "Begär Offert"
+    },
+    {
+      "type": "url",
+      "id": "cta_url",
+      "label": "Button URL"
     },
     {
       "type": "select",

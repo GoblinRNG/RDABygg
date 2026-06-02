@@ -1,0 +1,338 @@
+{{ 'rda-construction.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign overlay_alpha = section.settings.overlay_opacity | divided_by: 100.0
+-%}
+
+<section
+  class="rda-hero"
+  style="
+    --hero-heading-color: {{ section.settings.color_heading }};
+    --hero-subheading-color: {{ section.settings.color_subheading }};
+    --hero-body-color: {{ section.settings.color_body }};
+    --hero-divider-color: {{ section.settings.color_divider }};
+    --hero-btn-primary-bg: {{ section.settings.color_btn_primary_bg }};
+    --hero-btn-primary-text: {{ section.settings.color_btn_primary_text }};
+    --hero-btn-primary-border: {{ section.settings.color_btn_primary_border }};
+    --hero-btn-secondary-text: {{ section.settings.color_btn_secondary_text }};
+    --hero-btn-secondary-border: {{ section.settings.color_btn_secondary_border }};
+    --hero-trust-bg: {{ section.settings.color_trust_bg }};
+    --hero-trust-border: {{ section.settings.color_trust_divider }};
+    --hero-trust-icon: {{ section.settings.color_trust_icon }};
+    --hero-trust-title: {{ section.settings.color_trust_title }};
+    --hero-trust-body: {{ section.settings.color_trust_body }};
+    --hero-overlay-opacity: {{ overlay_alpha }};
+  "
+>
+  {% if section.settings.hero_image %}
+    {{ section.settings.hero_image | image_url: width: 1920 | image_tag: loading: 'eager', alt: section.settings.heading, class: 'rda-hero__bg' }}
+  {% else %}
+    <div class="rda-hero__bg rda-hero__bg--placeholder"></div>
+  {% endif %}
+  <div class="rda-hero__overlay"></div>
+
+  <div class="rda-hero__body">
+    <div class="rda-hero__content">
+      <h1 class="rda-hero__heading">{{ section.settings.heading | default: 'RDA Bygg AB' }}</h1>
+      {% if section.settings.subheading != blank %}
+        <p class="rda-hero__subheading">{{ section.settings.subheading }}</p>
+      {% endif %}
+      <div class="rda-hero__divider"></div>
+      {% if section.settings.subtext != blank %}
+        <p class="rda-hero__subtext">{{ section.settings.subtext }}</p>
+      {% endif %}
+      <div class="rda-hero__ctas">
+        {% if section.settings.cta_primary_label != blank %}
+          <a href="{{ section.settings.cta_primary_url | default: '/pages/offert' }}" class="rda-hero__btn--primary">
+            {{ section.settings.cta_primary_label }}
+          </a>
+        {% endif %}
+        {% if section.settings.cta_secondary_label != blank %}
+          <a href="{{ section.settings.cta_secondary_url | default: '/pages/projekt' }}" class="rda-hero__btn--secondary">
+            {{ section.settings.cta_secondary_label }}
+          </a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  {%- if section.blocks.size > 0 -%}
+    <div class="rda-hero__trust-bar">
+      <div class="rda-hero__trust-inner">
+        {% for block in section.blocks %}
+          {% if block.type == 'trust_item' %}
+            <div class="rda-hero__trust-item" {{ block.shopify_attributes }}>
+              <span class="rda-hero__trust-icon" aria-hidden="true">
+                {% case block.settings.icon %}
+                  {% when 'home' %}
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/><path d="M9 21V12h6v9"/></svg>
+                  {% when 'people' %}
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="7" r="3"/><path d="M3 21v-2a4 4 0 014-4h4a4 4 0 014 4v2"/><path d="M16 3.13a4 4 0 010 7.75"/><path d="M21 21v-2a4 4 0 00-3-3.87"/></svg>
+                  {% when 'hammer' %}
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H9l-1 5h8l-1-5z"/><path d="M5 7l7 14 7-14"/></svg>
+                  {% when 'leaf' %}
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 8C8 10 5.9 16.17 3.82 19.5c.9.6 1.87.9 2.82.5 1.43-.6 2.36-2 2.36-2S7 20 12 20c5 0 8-3 8-8 0-1.5-.5-3-1-4z"/><path d="M3.5 19.5l4-4"/></svg>
+                  {% else %}
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+                {% endcase %}
+              </span>
+              <div class="rda-hero__trust-text">
+                <strong>{{ block.settings.title }}</strong>
+                {% if block.settings.description != blank %}
+                  <span>{{ block.settings.description }}</span>
+                {% endif %}
+              </div>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  {%- endif -%}
+</section>
+
+{% schema %}
+{
+  "name": "RDA Hero",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Background image"
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Hero background image"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "label": "Overlay darkness",
+      "min": 0,
+      "max": 85,
+      "step": 5,
+      "default": 45,
+      "unit": "%"
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Main heading",
+      "default": "RDA Bygg AB"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Tagline",
+      "default": "Bygger med kvalitet. Skapar för framtiden."
+    },
+    {
+      "type": "textarea",
+      "id": "subtext",
+      "label": "Body text",
+      "default": "Professionellt byggföretag med fokus på kvalitet, pålitlighet och nöjda kunder."
+    },
+    {
+      "type": "header",
+      "content": "Buttons"
+    },
+    {
+      "type": "text",
+      "id": "cta_primary_label",
+      "label": "Primary button label",
+      "default": "Begär Offert"
+    },
+    {
+      "type": "url",
+      "id": "cta_primary_url",
+      "label": "Primary button URL"
+    },
+    {
+      "type": "text",
+      "id": "cta_secondary_label",
+      "label": "Secondary button label",
+      "default": "Våra Projekt"
+    },
+    {
+      "type": "url",
+      "id": "cta_secondary_url",
+      "label": "Secondary button URL"
+    },
+    {
+      "type": "header",
+      "content": "Hero colors"
+    },
+    {
+      "type": "color",
+      "id": "color_heading",
+      "label": "Heading color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "color_subheading",
+      "label": "Tagline color",
+      "default": "#e8e8e8"
+    },
+    {
+      "type": "color",
+      "id": "color_body",
+      "label": "Body text color",
+      "default": "#d0cec9"
+    },
+    {
+      "type": "color",
+      "id": "color_divider",
+      "label": "Accent divider color",
+      "default": "#C4860A"
+    },
+    {
+      "type": "header",
+      "content": "Primary button colors"
+    },
+    {
+      "type": "color",
+      "id": "color_btn_primary_bg",
+      "label": "Background",
+      "default": "#2C2C2C"
+    },
+    {
+      "type": "color",
+      "id": "color_btn_primary_text",
+      "label": "Text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "color_btn_primary_border",
+      "label": "Border",
+      "default": "#2C2C2C"
+    },
+    {
+      "type": "header",
+      "content": "Secondary (ghost) button colors"
+    },
+    {
+      "type": "color",
+      "id": "color_btn_secondary_text",
+      "label": "Text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "color_btn_secondary_border",
+      "label": "Border",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Trust bar colors"
+    },
+    {
+      "type": "color",
+      "id": "color_trust_bg",
+      "label": "Background",
+      "default": "#14120f"
+    },
+    {
+      "type": "color",
+      "id": "color_trust_divider",
+      "label": "Column divider",
+      "default": "#2e2b26"
+    },
+    {
+      "type": "color",
+      "id": "color_trust_icon",
+      "label": "Icon color",
+      "default": "#C4860A"
+    },
+    {
+      "type": "color",
+      "id": "color_trust_title",
+      "label": "Title color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "color_trust_body",
+      "label": "Description color",
+      "default": "#9e9a94"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "trust_item",
+      "name": "Trust item",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "default": "home",
+          "options": [
+            { "value": "home", "label": "Home / House" },
+            { "value": "people", "label": "People / Team" },
+            { "value": "hammer", "label": "Hammer / Tools" },
+            { "value": "leaf", "label": "Leaf / Nature" }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Kvalitet"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "Vi använder material av högsta kvalitet och arbetar med precision i varje detalj."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "RDA Hero",
+      "blocks": [
+        {
+          "type": "trust_item",
+          "settings": {
+            "icon": "home",
+            "title": "Kvalitet",
+            "description": "Vi använder material av högsta kvalitet och arbetar med precision i varje detalj."
+          }
+        },
+        {
+          "type": "trust_item",
+          "settings": {
+            "icon": "people",
+            "title": "Pålitlighet",
+            "description": "Vi håller vad vi lovar och levererar i tid – varje gång."
+          }
+        },
+        {
+          "type": "trust_item",
+          "settings": {
+            "icon": "hammer",
+            "title": "Erfarenhet",
+            "description": "Många års erfarenhet inom byggbranschen och hundratals nöjda kunder."
+          }
+        },
+        {
+          "type": "trust_item",
+          "settings": {
+            "icon": "leaf",
+            "title": "Hållbarhet",
+            "description": "Vi bygger med ansvar för både miljö och framtida generationer."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

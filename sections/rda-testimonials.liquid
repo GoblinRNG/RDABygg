@@ -1,0 +1,139 @@
+{{ 'rda-construction.css' | asset_url | stylesheet_tag }}
+
+<section class="rda-section rda-testimonials">
+  <div class="rda-container">
+    <div class="rda-section-header rda-section-header--center">
+      {% if section.settings.heading != blank %}
+        <h2 class="rda-section-title">{{ section.settings.heading }}</h2>
+      {% endif %}
+      {% if section.settings.subtext != blank %}
+        <p class="rda-section-subtitle">{{ section.settings.subtext }}</p>
+      {% endif %}
+    </div>
+    <div class="rda-testimonials-grid">
+      {% for block in section.blocks %}
+        {% if block.type == 'testimonial' %}
+          <div class="rda-testimonial-card" {{ block.shopify_attributes }}>
+            <div class="rda-testimonial-card__stars" aria-label="{{ block.settings.rating }} out of 5 stars">
+              {% assign rating = block.settings.rating | plus: 0 %}
+              {% for i in (1..5) %}
+                {% if i <= rating %}★{% else %}☆{% endif %}
+              {% endfor %}
+            </div>
+            {% if block.settings.text != blank %}
+              <p class="rda-testimonial-card__text">"{{ block.settings.text }}"</p>
+            {% endif %}
+            <div class="rda-testimonial-card__author">
+              {% if block.settings.name != blank %}
+                <p class="rda-testimonial-card__name">{{ block.settings.name }}</p>
+              {% endif %}
+              <p class="rda-testimonial-card__meta">
+                {% if block.settings.city != blank %}{{ block.settings.city }}{% endif %}
+                {% if block.settings.project_type != blank %} &middot; {{ block.settings.project_type }}{% endif %}
+              </p>
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "RDA Testimonials",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "What Our Customers Say"
+    },
+    {
+      "type": "textarea",
+      "id": "subtext",
+      "label": "Subtext",
+      "default": "Trusted by homeowners and businesses across Stockholm."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "testimonial",
+      "name": "Testimonial",
+      "settings": [
+        {
+          "type": "range",
+          "id": "rating",
+          "label": "Rating",
+          "min": 1,
+          "max": 5,
+          "step": 1,
+          "default": 5
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Review text",
+          "default": "Excellent work — professional, punctual, and great attention to detail."
+        },
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Customer name",
+          "default": "Anna L."
+        },
+        {
+          "type": "text",
+          "id": "city",
+          "label": "City",
+          "default": "Stockholm"
+        },
+        {
+          "type": "text",
+          "id": "project_type",
+          "label": "Project type",
+          "default": "Kitchen Renovation"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "RDA Testimonials",
+      "blocks": [
+        {
+          "type": "testimonial",
+          "settings": {
+            "rating": 5,
+            "text": "RDA Bygg did a fantastic job on our kitchen renovation. On time, on budget, and the quality of craftsmanship is superb.",
+            "name": "Anna L.",
+            "city": "Täby",
+            "project_type": "Kitchen Carpentry"
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+            "rating": 5,
+            "text": "We hired RDA for our garden decking project. The result exceeded our expectations — beautifully finished and very durable.",
+            "name": "Marcus B.",
+            "city": "Sollentuna",
+            "project_type": "Decking"
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+            "rating": 5,
+            "text": "Professional team, great communication throughout. The new flooring and doors have completely transformed our home.",
+            "name": "Kristina J.",
+            "city": "Stockholm",
+            "project_type": "Flooring & Doors"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

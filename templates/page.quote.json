@@ -3,22 +3,22 @@
     "banner": {
       "type": "rda-image-banner-simple",
       "settings": {
-        "heading": "Contact Us",
-        "subtext": "Get in touch for a free consultation and quote."
+        "heading": "Request a Quote",
+        "subtext": "Fill in the form and we will get back to you within one business day."
       }
     },
     "quote_form": {
       "type": "rda-quote-form",
       "settings": {}
     },
-    "service_area": {
-      "type": "rda-service-area",
+    "faq": {
+      "type": "rda-faq",
       "settings": {}
     }
   },
   "order": [
     "banner",
     "quote_form",
-    "service_area"
+    "faq"
   ]
 }

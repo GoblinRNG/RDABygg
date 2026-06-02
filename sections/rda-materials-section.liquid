@@ -1,0 +1,113 @@
+{{ 'rda-construction.css' | asset_url | stylesheet_tag }}
+
+<section class="rda-section">
+  <div class="rda-container">
+    <div class="rda-section-header{% if section.settings.center_header %} rda-section-header--center{% endif %}">
+      {% if section.settings.heading != blank %}
+        <h2 class="rda-section-title">{{ section.settings.heading }}</h2>
+      {% endif %}
+      {% if section.settings.subtext != blank %}
+        <p class="rda-section-subtitle">{{ section.settings.subtext }}</p>
+      {% endif %}
+    </div>
+    <div class="rda-materials__grid">
+      {% for block in section.blocks %}
+        {% if block.type == 'material' %}
+          <div class="rda-material-card" {{ block.shopify_attributes }}>
+            {% if block.settings.image %}
+              {{ block.settings.image | image_url: width: 800 | image_tag: loading: 'lazy', alt: block.settings.title, class: 'rda-material-card__image' }}
+            {% endif %}
+            <div class="rda-material-card__body">
+              {% if block.settings.title != blank %}
+                <h3 class="rda-material-card__title">{{ block.settings.title }}</h3>
+              {% endif %}
+              {% if block.settings.description != blank %}
+                <p class="rda-material-card__description">{{ block.settings.description }}</p>
+              {% endif %}
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "RDA Materials",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Quality Materials"
+    },
+    {
+      "type": "textarea",
+      "id": "subtext",
+      "label": "Subtext",
+      "default": "We work with premium Swedish and Scandinavian materials built to last."
+    },
+    {
+      "type": "checkbox",
+      "id": "center_header",
+      "label": "Center heading",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "material",
+      "name": "Material",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Material image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Material title",
+          "default": "Solid Pine"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "Sustainably sourced Scandinavian pine for framing and structural work."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "RDA Materials",
+      "blocks": [
+        {
+          "type": "material",
+          "settings": {
+            "title": "Solid Oak",
+            "description": "Premium oak hardwood for flooring, furniture, and decorative work."
+          }
+        },
+        {
+          "type": "material",
+          "settings": {
+            "title": "Scandinavian Pine",
+            "description": "Sustainably sourced pine — the backbone of quality Swedish construction."
+          }
+        },
+        {
+          "type": "material",
+          "settings": {
+            "title": "Composite Decking",
+            "description": "Low-maintenance composite boards ideal for outdoor decking."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
