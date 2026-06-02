@@ -1455,3 +1455,232 @@
 .template-index .rda-hero__body {
   padding-top: 8rem;
 }
+
+/* ============================================================
+   Announcement Bar — "We're Hiring" floating card
+   ============================================================ */
+.rda-announce-wrap {
+  padding: 1rem 1.5rem;
+  background: transparent;
+}
+
+.rda-announce {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  background: var(--ann-bg, #192140);
+  border-radius: 12px;
+  padding: 1rem 1.5rem 1rem 1.75rem;
+  overflow: hidden;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.22);
+  min-height: 88px;
+}
+
+/* Right-side background photo — fades into card bg */
+.rda-announce__photo {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 30%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.rda-announce__photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.6) 40%, rgba(0,0,0,1) 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.6) 40%, rgba(0,0,0,1) 100%);
+}
+
+/* All children above photo */
+.rda-announce > *:not(.rda-announce__photo) {
+  position: relative;
+  z-index: 1;
+}
+
+/* Left icon column */
+.rda-announce__icon-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+  flex-shrink: 0;
+}
+
+.rda-announce__icon-circle {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  border: 1.5px solid var(--ann-icon-border, #C4860A);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ann-icon-border, #C4860A);
+}
+
+.rda-announce__icon-circle svg {
+  width: 1.3rem;
+  height: 1.3rem;
+}
+
+.rda-announce__icon-label {
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ann-label, #C4860A);
+  white-space: nowrap;
+}
+
+/* Vertical dividers */
+.rda-announce__vdivider {
+  width: 1px;
+  height: 2.5rem;
+  background: var(--ann-divider, #2e3d5c);
+  flex-shrink: 0;
+  align-self: center;
+}
+
+/* Text column — grows to fill space */
+.rda-announce__text-col {
+  flex: 1;
+  min-width: 0;
+}
+
+.rda-announce__heading {
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  font-weight: 700;
+  line-height: 1.3;
+  margin: 0 0 0.2rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.rda-announce__heading-plain {
+  color: var(--ann-heading, #fff);
+}
+
+.rda-announce__heading-accent {
+  color: var(--ann-accent, #C4860A);
+}
+
+.rda-announce__sub {
+  font-size: 0.85rem;
+  color: var(--ann-sub, #b0b8c8);
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* Buttons group */
+.rda-announce__btns {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  flex-shrink: 0;
+}
+
+/* Gold filled CTA button */
+.rda-announce__btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--ann-btn-bg, #C4860A);
+  color: var(--ann-btn-text, #192140);
+  font-size: 0.88rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  padding: 0.65rem 1.4rem;
+  border-radius: 8px;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: filter 0.2s ease;
+}
+
+.rda-announce__btn-primary:hover,
+.rda-announce__btn-primary:focus {
+  filter: brightness(1.1);
+  outline: 2px solid var(--ann-btn-bg, #C4860A);
+  outline-offset: 2px;
+}
+
+.rda-announce__btn-arrow {
+  font-size: 1rem;
+  line-height: 1;
+}
+
+/* Text link */
+.rda-announce__btn-link {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--ann-link-color, #fff);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: opacity 0.2s;
+}
+
+.rda-announce__btn-link:hover,
+.rda-announce__btn-link:focus {
+  opacity: 0.75;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .rda-announce {
+    gap: 1rem;
+    padding: 1rem 1.25rem;
+  }
+
+  .rda-announce__heading {
+    white-space: normal;
+  }
+
+  .rda-announce__photo {
+    width: 20%;
+  }
+
+  .rda-announce__btn-link,
+  .rda-announce__btns .rda-announce__vdivider {
+    display: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .rda-announce-wrap {
+    padding: 0.75rem 1rem;
+  }
+
+  .rda-announce {
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    padding: 1rem;
+    border-radius: 10px;
+  }
+
+  .rda-announce__icon-col,
+  .rda-announce__vdivider {
+    display: none;
+  }
+
+  .rda-announce__photo {
+    display: none;
+  }
+
+  .rda-announce__text-col {
+    flex: 1 1 100%;
+  }
+
+  .rda-announce__btns {
+    flex: 1 1 100%;
+  }
+}
+
+/* On homepage, account for the announcement bar height in body offset */
+.template-index .rda-hero {
+  min-height: calc(100vh - 0px);
+}
