@@ -1,0 +1,408 @@
+{% comment %}
+  RDA Careers / Recruiting section
+  Requires a Formspree account — paste your endpoint URL in section settings.
+{% endcomment %}
+
+{%- liquid
+  assign overlay_pct = section.settings.overlay_opacity | divided_by: 100.0
+  assign position_list = section.settings.position_options | newline_to_br | split: '<br />'
+-%}
+
+<style>
+  #shopify-section-{{ section.id }} {
+    --rda-careers-bg: {{ section.settings.color_bg }};
+    --rda-careers-heading: {{ section.settings.color_heading }};
+    --rda-careers-accent: {{ section.settings.color_accent }};
+    --rda-careers-form-bg: {{ section.settings.color_form_bg }};
+    --rda-careers-btn-bg: {{ section.settings.color_btn_bg }};
+    --rda-careers-btn-text: {{ section.settings.color_btn_text }};
+  }
+</style>
+
+<section class="rda-careers" id="rda-careers-section-{{ section.id }}">
+
+  {%- comment %} ── Hero / intro band ── {% endcomment %}
+  <div class="rda-careers__hero{% if section.settings.bg_image != blank %} rda-careers__hero--has-image{% endif %}">
+    {%- if section.settings.bg_image != blank -%}
+      <div class="rda-careers__hero-img">
+        {{- section.settings.bg_image | image_url: width: 1800 | image_tag: loading: 'lazy', class: 'rda-careers__hero-photo' -}}
+      </div>
+      <div class="rda-careers__hero-overlay" style="opacity: {{ overlay_pct }};"></div>
+    {%- endif -%}
+    <div class="rda-careers__hero-content page-width">
+      {%- if section.settings.heading != blank -%}
+        <h1 class="rda-careers__heading">{{ section.settings.heading | escape }}</h1>
+      {%- endif -%}
+      {%- if section.settings.subheading != blank -%}
+        <p class="rda-careers__subheading">{{ section.settings.subheading | escape }}</p>
+      {%- endif -%}
+      {%- if section.settings.body_text != blank -%}
+        <p class="rda-careers__body-text">{{ section.settings.body_text | escape }}</p>
+      {%- endif -%}
+    </div>
+  </div>
+
+  {%- comment %} ── Two-column body ── {% endcomment %}
+  <div class="rda-careers__body page-width">
+
+    {%- comment %} Left: benefits {% endcomment %}
+    <div class="rda-careers__benefits">
+      <h2 class="rda-careers__benefits-heading">Why work with us</h2>
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'benefit' -%}
+          <div class="rda-careers__benefit" {{ block.shopify_attributes }}>
+            <div class="rda-careers__benefit-icon" aria-hidden="true">
+              {%- case block.settings.icon -%}
+                {%- when 'clock' -%}
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                {%- when 'people' -%}
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                {%- when 'location' -%}
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                {%- when 'tools' -%}
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+                {%- else -%}
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              {%- endcase -%}
+            </div>
+            <div class="rda-careers__benefit-text">
+              {%- if block.settings.title != blank -%}
+                <h3 class="rda-careers__benefit-title">{{ block.settings.title | escape }}</h3>
+              {%- endif -%}
+              {%- if block.settings.description != blank -%}
+                <p class="rda-careers__benefit-desc">{{ block.settings.description | escape }}</p>
+              {%- endif -%}
+            </div>
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+
+    {%- comment %} Right: application form {% endcomment %}
+    <div class="rda-careers__form-col">
+      <div class="rda-careers__form-card">
+        <h2 class="rda-careers__form-heading">Apply now</h2>
+
+        {%- if section.settings.form_endpoint == blank -%}
+          <p class="rda-careers__notice">
+            <strong>Setup required:</strong> Create a free account at
+            <a href="https://formspree.io" target="_blank" rel="noopener">formspree.io</a>,
+            create a form, and paste the endpoint URL in the <em>Form endpoint URL</em> setting in the theme editor.
+          </p>
+        {%- endif -%}
+
+        <p id="rda-careers-success" class="rda-careers__success" hidden>
+          Thank you for your application! We will be in touch soon.
+        </p>
+        <p id="rda-careers-error" class="rda-careers__error" hidden></p>
+
+        <form
+          id="rda-careers-form"
+          action="{{ section.settings.form_endpoint }}"
+          method="POST"
+          novalidate
+        >
+          <div class="rda-careers__field">
+            <label class="rda-careers__label" for="rda-careers-name">Full name <span aria-hidden="true">*</span></label>
+            <input
+              class="rda-careers__input"
+              type="text"
+              id="rda-careers-name"
+              name="name"
+              required
+              autocomplete="name"
+            >
+          </div>
+
+          <div class="rda-careers__field-row">
+            <div class="rda-careers__field">
+              <label class="rda-careers__label" for="rda-careers-email">Email <span aria-hidden="true">*</span></label>
+              <input
+                class="rda-careers__input"
+                type="email"
+                id="rda-careers-email"
+                name="email"
+                required
+                autocomplete="email"
+              >
+            </div>
+            <div class="rda-careers__field">
+              <label class="rda-careers__label" for="rda-careers-phone">Phone</label>
+              <input
+                class="rda-careers__input"
+                type="tel"
+                id="rda-careers-phone"
+                name="phone"
+                autocomplete="tel"
+              >
+            </div>
+          </div>
+
+          <div class="rda-careers__field-row">
+            <div class="rda-careers__field">
+              <label class="rda-careers__label" for="rda-careers-position">Position applying for</label>
+              <select class="rda-careers__input rda-careers__select" id="rda-careers-position" name="position">
+                <option value="">— Select a position —</option>
+                {%- for opt in position_list -%}
+                  {%- assign clean = opt | strip -%}
+                  {%- if clean != blank -%}
+                    <option value="{{ clean | escape }}">{{ clean | escape }}</option>
+                  {%- endif -%}
+                {%- endfor -%}
+              </select>
+            </div>
+            <div class="rda-careers__field">
+              <label class="rda-careers__label" for="rda-careers-available">Available from</label>
+              <input
+                class="rda-careers__input"
+                type="date"
+                id="rda-careers-available"
+                name="available_from"
+              >
+            </div>
+          </div>
+
+          <div class="rda-careers__field">
+            <label class="rda-careers__label" for="rda-careers-about">Tell us about yourself</label>
+            <textarea
+              class="rda-careers__input rda-careers__textarea"
+              id="rda-careers-about"
+              name="message"
+              rows="4"
+            ></textarea>
+          </div>
+
+          <div class="rda-careers__field">
+            <label class="rda-careers__label" for="rda-careers-cv">
+              CV / Resume <span aria-hidden="true">*</span>
+              <span class="rda-careers__hint">PDF, DOC, DOCX — max 25 MB</span>
+            </label>
+            <div class="rda-careers__dropzone">
+              <input
+                class="rda-careers__file-input"
+                type="file"
+                id="rda-careers-cv"
+                name="cv"
+                required
+                accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+              >
+              <span class="rda-careers__dropzone-label">Click to upload or drag and drop</span>
+            </div>
+          </div>
+
+          <div class="rda-careers__field">
+            <label class="rda-careers__label" for="rda-careers-portfolio">
+              Work photos / portfolio
+              <span class="rda-careers__hint">Images or PDF — max 25 MB per file</span>
+            </label>
+            <div class="rda-careers__dropzone">
+              <input
+                class="rda-careers__file-input"
+                type="file"
+                id="rda-careers-portfolio"
+                name="portfolio[]"
+                multiple
+                accept="image/*,.pdf,application/pdf"
+              >
+              <span class="rda-careers__dropzone-label">Click to upload or drag and drop</span>
+            </div>
+          </div>
+
+          <div class="rda-careers__field">
+            <label class="rda-careers__label" for="rda-careers-source">How did you hear about us?</label>
+            <select class="rda-careers__input rda-careers__select" id="rda-careers-source" name="source">
+              <option value="">— Select —</option>
+              <option value="Google">Google</option>
+              <option value="Referral">Referral</option>
+              <option value="Social media">Social media</option>
+              <option value="Job board">Job board</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+
+          <button
+            type="submit"
+            class="rda-careers__submit"
+            data-default="Submit application"
+            data-loading="Sending…"
+          >
+            Submit application
+          </button>
+        </form>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Careers form",
+  "tag": "section",
+  "class": "rda-careers-section",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "To receive applications you need a free Formspree account. Go to formspree.io, create a new form, and paste the endpoint URL below."
+    },
+    {
+      "type": "text",
+      "id": "form_endpoint",
+      "label": "Formspree endpoint URL",
+      "info": "e.g. https://formspree.io/f/xxxxx"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Join Our Team"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "We're looking for skilled carpenters, installers, and site workers"
+    },
+    {
+      "type": "textarea",
+      "id": "body_text",
+      "label": "Intro paragraph",
+      "default": "RDA Bygg AB is a growing construction company based in Stockholm. We take pride in quality craftsmanship and a collaborative work environment. If you want to be part of a dedicated team, we'd love to hear from you."
+    },
+    {
+      "type": "image_picker",
+      "id": "bg_image",
+      "label": "Background image"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "label": "Image overlay opacity",
+      "min": 0,
+      "max": 70,
+      "step": 5,
+      "default": 50,
+      "unit": "%"
+    },
+    {
+      "type": "textarea",
+      "id": "position_options",
+      "label": "Position options (one per line)",
+      "default": "Carpenter\nInstaller\nSite worker\nProject assistant\nOther"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "color_bg",
+      "label": "Section background",
+      "default": "#F5F0E8"
+    },
+    {
+      "type": "color",
+      "id": "color_heading",
+      "label": "Heading color",
+      "default": "#2C2C2C"
+    },
+    {
+      "type": "color",
+      "id": "color_accent",
+      "label": "Accent color",
+      "default": "#C4860A"
+    },
+    {
+      "type": "color",
+      "id": "color_form_bg",
+      "label": "Form card background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "color_btn_bg",
+      "label": "Submit button background",
+      "default": "#2C2C2C"
+    },
+    {
+      "type": "color",
+      "id": "color_btn_text",
+      "label": "Submit button text",
+      "default": "#ffffff"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "benefit",
+      "name": "Benefit",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            { "value": "checkmark", "label": "Checkmark" },
+            { "value": "clock",     "label": "Clock" },
+            { "value": "people",    "label": "People" },
+            { "value": "location",  "label": "Location" },
+            { "value": "tools",     "label": "Tools" }
+          ],
+          "default": "checkmark"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Competitive pay"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "We offer market-rate salaries and review them regularly."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Careers form",
+      "blocks": [
+        {
+          "type": "benefit",
+          "settings": {
+            "icon": "checkmark",
+            "title": "Competitive pay",
+            "description": "We offer market-rate salaries and review compensation regularly to keep up with the industry."
+          }
+        },
+        {
+          "type": "benefit",
+          "settings": {
+            "icon": "clock",
+            "title": "Stable projects",
+            "description": "Long-term contracts mean you can plan ahead. We always have work lined up."
+          }
+        },
+        {
+          "type": "benefit",
+          "settings": {
+            "icon": "people",
+            "title": "Great team",
+            "description": "Join a tight-knit crew where experience is shared and everyone looks out for each other."
+          }
+        },
+        {
+          "type": "benefit",
+          "settings": {
+            "icon": "location",
+            "title": "Stockholm area work",
+            "description": "All projects are in and around Stockholm, so you won't spend hours commuting across the country."
+          }
+        }
+      ]
+    }
+  ],
+  "max_blocks": 4
+}
+{% endschema %}

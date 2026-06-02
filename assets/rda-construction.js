@@ -162,6 +162,73 @@
   }
 
   /* ============================================================
+     Careers / Recruiting Form
+     ============================================================ */
+  function initCareersForm() {
+    var form = document.getElementById('rda-careers-form');
+    if (!form) return;
+
+    var submitBtn = form.querySelector('.rda-careers__submit');
+    var successMsg = document.getElementById('rda-careers-success');
+    var errorMsg = document.getElementById('rda-careers-error');
+    var MAX_SIZE = 25 * 1024 * 1024; // 25MB
+
+    function validateFiles() {
+      var inputs = form.querySelectorAll('input[type="file"]');
+      for (var i = 0; i < inputs.length; i++) {
+        var files = inputs[i].files;
+        for (var j = 0; j < files.length; j++) {
+          if (files[j].size > MAX_SIZE) {
+            return 'File "' + files[j].name + '" is too large. Maximum size is 25 MB.';
+          }
+        }
+      }
+      return null;
+    }
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var fileError = validateFiles();
+      if (fileError) {
+        errorMsg.textContent = fileError;
+        errorMsg.hidden = false;
+        successMsg.hidden = true;
+        return;
+      }
+      errorMsg.hidden = true;
+      successMsg.hidden = true;
+      submitBtn.disabled = true;
+      submitBtn.textContent = submitBtn.getAttribute('data-loading');
+
+      var data = new FormData(form);
+
+      fetch(form.action, {
+        method: 'POST',
+        body: data,
+        headers: { 'Accept': 'application/json' }
+      })
+      .then(function (res) {
+        if (res.ok) {
+          successMsg.hidden = false;
+          form.reset();
+        } else {
+          return res.json().then(function (json) {
+            throw new Error(json.error || 'Submission failed');
+          });
+        }
+      })
+      .catch(function (err) {
+        errorMsg.textContent = err.message || 'Something went wrong. Please try again or email us directly.';
+        errorMsg.hidden = false;
+      })
+      .finally(function () {
+        submitBtn.disabled = false;
+        submitBtn.textContent = submitBtn.getAttribute('data-default');
+      });
+    });
+  }
+
+  /* ============================================================
      Init on DOMContentLoaded
      ============================================================ */
   if (document.readyState === 'loading') {
@@ -169,11 +236,13 @@
       initFaqAccordion();
       initBeforeAfterSliders();
       initScrollHeader();
+      initCareersForm();
     });
   } else {
     initFaqAccordion();
     initBeforeAfterSliders();
     initScrollHeader();
+    initCareersForm();
   }
 
 })();

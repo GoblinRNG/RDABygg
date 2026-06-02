@@ -1,0 +1,9 @@
+{
+  "sections": {
+    "careers": {
+      "type": "rda-careers-form",
+      "settings": {}
+    }
+  },
+  "order": ["careers"]
+}
